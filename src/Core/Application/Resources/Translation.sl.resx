@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AtLeastOneRoleRequired" xml:space="preserve">
+    <value>Potrebna je vsaj ena vloga.</value>
+  </data>
+  <data name="ConcurrencyFailure" xml:space="preserve">
+    <value>Optimistična napaka sočasnosti, objekt je bil spremenjen.</value>
+  </data>
+  <data name="CurrentPasswordMustContain" xml:space="preserve">
+    <value>Trenutno geslo mora vsebovati velike in male črke, številke in posebne znake.</value>
+  </data>
+  <data name="CurrentRasswordRequired" xml:space="preserve">
+    <value>Trenutno geslo je potrebno.</value>
+  </data>
+  <data name="DataNotFound" xml:space="preserve">
+    <value>Zahtevani podatki niso bili najdeni.</value>
+  </data>
+  <data name="DefaultError" xml:space="preserve">
+    <value>Prišlo je do neznane napake.</value>
+  </data>
+  <data name="DuplicateEmail" xml:space="preserve">
+    <value>E-poštni naslov '{0}' je že zaseden.</value>
+  </data>
+  <data name="DuplicateRoleName" xml:space="preserve">
+    <value>Ime vloge '{0}' je že zasedeno.</value>
+  </data>
+  <data name="DuplicateUserName" xml:space="preserve">
+    <value>Uporabniško ime '{0}' je že zasedeno.</value>
+  </data>
+  <data name="EmailNotSend" xml:space="preserve">
+    <value>Prišlo je do napake pri pošiljanju e-pošte.</value>
+  </data>
+  <data name="EmailRequired" xml:space="preserve">
+    <value>E-poštni naslov je potreben.</value>
+  </data>
+  <data name="EntityWasNotFound" xml:space="preserve">
+    <value>Entiteta "{0}" po ({1}) ni bila najdena.</value>
+  </data>
+  <data name="Forbidden" xml:space="preserve">
+    <value>Dostop prepovedan.</value>
+  </data>
+  <data name="GroupNameRequired" xml:space="preserve">
+    <value>Ime skupine je potrebno.</value>
+  </data>
+  <data name="IncorrectUsernameOrPassword" xml:space="preserve">
+    <value>Napačno uporabniško ime ali geslo.</value>
+  </data>
+  <data name="InernalServerError" xml:space="preserve">
+    <value>Napaka na strežniški strani, prosimo kontaktirajte administratorja.</value>
+  </data>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>E-poštni naslov '{0}' ni veljaven.</value>
+  </data>
+  <data name="InvalidRefreshToken" xml:space="preserve">
+    <value>Osvežitveni žeton ni veljaven.</value>
+  </data>
+  <data name="InvalidRoleName" xml:space="preserve">
+    <value>Ime vloge '{0}' ni veljavno.</value>
+  </data>
+  <data name="InvalidToken" xml:space="preserve">
+    <value>Neveljaven žeton.</value>
+  </data>
+  <data name="InvalidUserName" xml:space="preserve">
+    <value>Uporabniško ime '{0}' ni veljavno, lahko vsebuje samo črke ali številke.</value>
+  </data>
+  <data name="LoginAlreadyAssociated" xml:space="preserve">
+    <value>Uporabnik s to prijavo že obstaja.</value>
+  </data>
+  <data name="MessageYourselfValidation" xml:space="preserve">
+    <value>Ne morete si poslati sporočila.</value>
+  </data>
+  <data name="ModelCanNotBeNull" xml:space="preserve">
+    <value>Model ne more biti prazen.</value>
+  </data>
+  <data name="NewPasswordMustContain" xml:space="preserve">
+    <value>Novo geslo mora vsebovati velike in male črke, številke in posebne znake.</value>
+  </data>
+  <data name="NewPasswordRequired" xml:space="preserve">
+    <value>Novo geslo je potrebno.</value>
+  </data>
+  <data name="PasswordMismatch" xml:space="preserve">
+    <value>Gesli se ne ujemata.</value>
+  </data>
+  <data name="PasswordMustContain" xml:space="preserve">
+    <value>Geslo mora vsebovati velike in male črke, številke in posebne znake.</value>
+  </data>
+  <data name="PasswordRequired" xml:space="preserve">
+    <value>Geslo je potrebno.</value>
+  </data>
+  <data name="PasswordRequiresDigit" xml:space="preserve">
+    <value>Gesla morajo imeti vsaj eno številko ('0'-'9').</value>
+  </data>
+  <data name="PasswordRequiresLower" xml:space="preserve">
+    <value>Gesla morajo imeti vsaj eno malo črko ('a'-'z').</value>
+  </data>
+  <data name="PasswordRequiresNonAlphanumeric" xml:space="preserve">
+    <value>Gesla morajo imeti vsaj en znak, ki ni alfanumeričen.</value>
+  </data>
+  <data name="PasswordRequiresUpper" xml:space="preserve">
+    <value>Gesla morajo imeti vsaj eno veliko črko ('A'-'Z').</value>
+  </data>
+  <data name="PasswordTooShort" xml:space="preserve">
+    <value>Gesla morajo imeti vsaj {0} znakov.</value>
+  </data>
+  <data name="TokenRequired" xml:space="preserve">
+    <value>Žeton je potreben.</value>
+  </data>
+  <data name="Unauthorised" xml:space="preserve">
+    <value>Nimate dovoljenja za dostop.</value>
+  </data>
+  <data name="UserAlreadyHasPassword" xml:space="preserve">
+    <value>Uporabnik že ima nastavljeno geslo.</value>
+  </data>
+  <data name="UserAlreadyInRole" xml:space="preserve">
+    <value>Uporabnik že ima vlogo '{0}'.</value>
+  </data>
+  <data name="UserExists" xml:space="preserve">
+    <value>Uporabnik z danim uporabniškim imenom že obstaja, prosimo vnesite drugo uporabniško ime.</value>
+  </data>
+  <data name="UserLockoutNotEnabled" xml:space="preserve">
+    <value>Zaklepanje ni omogočeno za tega uporabnika.</value>
+  </data>
+  <data name="UsernameRequired" xml:space="preserve">
+    <value>Uporabniško ime je potrebno.</value>
+  </data>
+  <data name="UserNotInRole" xml:space="preserve">
+    <value>Uporabnik ni v vlogi '{0}'.</value>
+  </data>
+</root>

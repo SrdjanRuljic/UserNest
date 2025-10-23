@@ -1,0 +1,21 @@
+﻿using Domain.Entities.Identity;
+
+namespace Application.Common.Interfaces
+{
+    public interface IManagersService
+    {
+        Task<bool> IsInRoleAsync(string userId, string role);
+
+        Task<bool> AuthorizeAsync(string userId, string policyName, CancellationToken cancellationToken = default);
+
+        Task<AppUser?> AuthenticateAsync(string userName, string password, CancellationToken cancellationToken = default);
+
+        Task<AppUser?> FindByUserNameOrEmailAsync(string term, CancellationToken cancellationToken = default);
+
+        Task<string[]> GetRolesAsync(AppUser user);
+
+        Task SignOutAsync();
+
+        Task<AppUser?> FindByIdAsync(string id);
+    }
+}
