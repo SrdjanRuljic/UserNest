@@ -71,6 +71,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseCustomExceptionHandler();
 
+app.UseRequestLocalization();
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

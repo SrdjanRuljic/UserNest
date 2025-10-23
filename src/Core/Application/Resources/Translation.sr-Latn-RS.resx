@@ -219,6 +219,9 @@
   <data name="PasswordTooShort" xml:space="preserve">
     <value>Lozinke moraju imati najmanje {0} znakova.</value>
   </data>
+  <data name="RefreshTokenRequired" xml:space="preserve">
+    <value>Token za osvježavanje je neophodan.</value>
+  </data>
   <data name="TokenRequired" xml:space="preserve">
     <value>Token je neophodan.</value>
   </data>

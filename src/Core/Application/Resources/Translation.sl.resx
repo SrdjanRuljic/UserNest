@@ -222,6 +222,9 @@
   <data name="PasswordTooShort" xml:space="preserve">
     <value>Gesla morajo imeti vsaj {0} znakov.</value>
   </data>
+  <data name="RefreshTokenRequired" xml:space="preserve">
+    <value>Osvežitveni žeton je potreben.</value>
+  </data>
   <data name="TokenRequired" xml:space="preserve">
     <value>Žeton je potreben.</value>
   </data>

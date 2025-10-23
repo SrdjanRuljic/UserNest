@@ -385,6 +385,15 @@ namespace Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Refresh token is required..
+        /// </summary>
+        public static string RefreshTokenRequired {
+            get {
+                return ResourceManager.GetString("RefreshTokenRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Token is required..
         /// </summary>
         public static string TokenRequired {

@@ -51,9 +51,9 @@ namespace Infrastructure
                     {
                         options.TokenValidationParameters = new TokenValidationParameters
                         {
-                            ValidateIssuer = false,
+                            ValidateIssuer = true,
                             ValidIssuer = configuration["Jwt:Issuer"],
-                            ValidateAudience = false,
+                            ValidateAudience = true,
                             ValidAudience = configuration["Jwt:Audience"],
                             ValidateLifetime = true,
                             ValidateIssuerSigningKey = true,

@@ -219,6 +219,9 @@
   <data name="PasswordTooShort" xml:space="preserve">
     <value>Passwords must be at least {0} characters.</value>
   </data>
+  <data name="RefreshTokenRequired" xml:space="preserve">
+    <value>Refresh token is required.</value>
+  </data>
   <data name="TokenRequired" xml:space="preserve">
     <value>Token is required.</value>
   </data>

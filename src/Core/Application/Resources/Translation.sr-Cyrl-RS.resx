@@ -219,6 +219,9 @@
   <data name="PasswordTooShort" xml:space="preserve">
     <value>Лозинке морају имати најманје {0} знакова.</value>
   </data>
+  <data name="RefreshTokenRequired" xml:space="preserve">
+    <value>Токен за освежавање је неопходан.</value>
+  </data>
   <data name="TokenRequired" xml:space="preserve">
     <value>Токен је неопходан.</value>
   </data>
