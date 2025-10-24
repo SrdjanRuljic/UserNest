@@ -168,11 +168,20 @@
   <data name="InvalidEmail" xml:space="preserve">
     <value>Email '{0}' is invalid.</value>
   </data>
+  <data name="EmailTooLong" xml:space="preserve">
+    <value>Email cannot exceed {0} characters.</value>
+  </data>
   <data name="InvalidRefreshToken" xml:space="preserve">
     <value>Refresh token is not valid. </value>
   </data>
   <data name="InvalidRoleName" xml:space="preserve">
     <value>Role name '{0}' is invalid.</value>
+  </data>
+  <data name="RoleRequired" xml:space="preserve">
+    <value>Role is required.</value>
+  </data>
+  <data name="InvalidRole" xml:space="preserve">
+    <value>Role '{0}' is invalid.</value>
   </data>
   <data name="InvalidToken" xml:space="preserve">
     <value>Invalid token.</value>
@@ -219,6 +228,12 @@
   <data name="PasswordTooShort" xml:space="preserve">
     <value>Passwords must be at least {0} characters.</value>
   </data>
+  <data name="PhoneNumberTooLong" xml:space="preserve">
+    <value>Phone number cannot exceed {0} characters.</value>
+  </data>
+  <data name="InvalidPhoneNumber" xml:space="preserve">
+    <value>Phone number '{0}' is invalid.</value>
+  </data>
   <data name="RefreshTokenRequired" xml:space="preserve">
     <value>Refresh token is required.</value>
   </data>
@@ -235,7 +250,7 @@
     <value>User already in role '{0}'.</value>
   </data>
   <data name="UserExists" xml:space="preserve">
-    <value>A user with given username already exists, please enter another username.</value>
+    <value>A user with given username or email already exists, please enter another username or email.</value>
   </data>
   <data name="UserLockoutNotEnabled" xml:space="preserve">
     <value>Lockout is not enabled for this user.</value>
@@ -245,5 +260,23 @@
   </data>
   <data name="UserNotInRole" xml:space="preserve">
     <value>User is not in role '{0}'.</value>
+  </data>
+  <data name="FirstNameRequired" xml:space="preserve">
+    <value>First name is required.</value>
+  </data>
+  <data name="LastNameRequired" xml:space="preserve">
+    <value>Last name is required.</value>
+  </data>
+  <data name="FirstNameTooLong" xml:space="preserve">
+    <value>First name must be at most {0} characters long.</value>
+  </data>
+  <data name="LastNameTooLong" xml:space="preserve">
+    <value>Last name must be at most {0} characters long.</value>
+  </data>
+  <data name="UserNameTooLong" xml:space="preserve">
+    <value>Username must be at most {0} characters long.</value>
+  </data>
+  <data name="LanguageIdValid" xml:space="preserve">
+    <value>Language ID must be greater than 0.</value>
   </data>
 </root>

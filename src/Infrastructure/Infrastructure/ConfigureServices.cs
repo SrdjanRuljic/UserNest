@@ -46,28 +46,33 @@ namespace Infrastructure
 
             services.Configure<DataProtectionTokenProviderOptions>(options => options.TokenLifespan = TimeSpan.FromHours(2));
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                    .AddJwtBearer(options =>
-                    {
-                        options.TokenValidationParameters = new TokenValidationParameters
-                        {
-                            ValidateIssuer = true,
-                            ValidIssuer = configuration["Jwt:Issuer"],
-                            ValidateAudience = true,
-                            ValidAudience = configuration["Jwt:Audience"],
-                            ValidateLifetime = true,
-                            ValidateIssuerSigningKey = true,
-                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:AccessTokenSecret"]!))
-                        };
-                    });
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidIssuer = configuration["Jwt:Issuer"],
+                    ValidateAudience = true,
+                    ValidAudience = configuration["Jwt:Audience"],
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:AccessTokenSecret"]!))
+                };
+            });
 
             services.AddAuthorizationBuilder()
-                    .AddPolicy(Domain.Enums.Policies.RequireAdminRole.ToString(), policy =>
-                        policy.RequireAuthenticatedUser().RequireRole(Domain.Enums.Roles.Admin.ToString()))
-                    .AddPolicy(Domain.Enums.Policies.RequireRegularUserRole.ToString(), policy =>
-                        policy.RequireAuthenticatedUser().RequireRole(Domain.Enums.Roles.RegularUser.ToString()))
-                    .AddPolicy(Domain.Enums.Policies.RequireAuthorization.ToString(), policy =>
-                        policy.RequireAuthenticatedUser());
+                .AddPolicy(Domain.Enums.Policies.RequireAdminRole.ToString(), policy =>
+                    policy.RequireAuthenticatedUser().RequireRole(Domain.Enums.Roles.Admin.ToString()))
+                .AddPolicy(Domain.Enums.Policies.RequireRegularUserRole.ToString(), policy =>
+                    policy.RequireAuthenticatedUser().RequireRole(Domain.Enums.Roles.RegularUser.ToString()))
+                .AddPolicy(Domain.Enums.Policies.RequireAuthorization.ToString(), policy =>
+                    policy.RequireAuthenticatedUser());
 
             services.AddTransient<IJwtFactory, JwtFactory>();
             services.AddTransient<IDateTimeService, DateTimeService>();

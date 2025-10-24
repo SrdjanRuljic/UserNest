@@ -15,7 +15,7 @@ namespace Application.Common.Behaviors
 
             if (authorizeAttributes.Any())
             {
-                if (currentUserService.UserId == null)
+                if (currentUserService.UserId == string.Empty)
                     throw new UnauthorizedAccessException(ErrorMessages.Unauthorized);
 
                 IEnumerable<AuthorizeAttribute> authorizeAttributesWithRoles = authorizeAttributes.Where(a => !string.IsNullOrWhiteSpace(a.Roles));

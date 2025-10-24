@@ -178,6 +178,15 @@ namespace Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to First name is required..
+        /// </summary>
+        public static string FirstNameRequired {
+            get {
+                return ResourceManager.GetString("FirstNameRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Forbidden.
         /// </summary>
         public static string Forbidden {
@@ -192,6 +201,51 @@ namespace Application.Resources {
         public static string GroupNameRequired {
             get {
                 return ResourceManager.GetString("GroupNameRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last name is required..
+        /// </summary>
+        public static string LastNameRequired {
+            get {
+                return ResourceManager.GetString("LastNameRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First name must be at most {0} characters long..
+        /// </summary>
+        public static string FirstNameTooLong {
+            get {
+                return ResourceManager.GetString("FirstNameTooLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last name must be at most {0} characters long..
+        /// </summary>
+        public static string LastNameTooLong {
+            get {
+                return ResourceManager.GetString("LastNameTooLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username must be at most {0} characters long..
+        /// </summary>
+        public static string UserNameTooLong {
+            get {
+                return ResourceManager.GetString("UserNameTooLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language ID must be greater than 0..
+        /// </summary>
+        public static string LanguageIdValid {
+            get {
+                return ResourceManager.GetString("LanguageIdValid", resourceCulture);
             }
         }
         
@@ -223,6 +277,15 @@ namespace Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email cannot exceed {0} characters..
+        /// </summary>
+        public static string EmailTooLong {
+            get {
+                return ResourceManager.GetString("EmailTooLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Refresh token is not valid. .
         /// </summary>
         public static string InvalidRefreshToken {
@@ -237,6 +300,24 @@ namespace Application.Resources {
         public static string InvalidRoleName {
             get {
                 return ResourceManager.GetString("InvalidRoleName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Role is required..
+        /// </summary>
+        public static string RoleRequired {
+            get {
+                return ResourceManager.GetString("RoleRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Role &apos;{0}&apos; is invalid..
+        /// </summary>
+        public static string InvalidRole {
+            get {
+                return ResourceManager.GetString("InvalidRole", resourceCulture);
             }
         }
         
@@ -372,6 +453,24 @@ namespace Application.Resources {
         public static string PasswordTooShort {
             get {
                 return ResourceManager.GetString("PasswordTooShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone number cannot exceed {0} characters..
+        /// </summary>
+        public static string PhoneNumberTooLong {
+            get {
+                return ResourceManager.GetString("PhoneNumberTooLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone number &apos;{0}&apos; is invalid..
+        /// </summary>
+        public static string InvalidPhoneNumber {
+            get {
+                return ResourceManager.GetString("InvalidPhoneNumber", resourceCulture);
             }
         }
         

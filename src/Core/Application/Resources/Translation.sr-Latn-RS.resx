@@ -168,11 +168,20 @@
   <data name="InvalidEmail" xml:space="preserve">
     <value>Mejl '{0}' je nevažeći.</value>
   </data>
+  <data name="EmailTooLong" xml:space="preserve">
+    <value>Mejl ne može biti duži od {0} karaktera.</value>
+  </data>
   <data name="InvalidRefreshToken" xml:space="preserve">
     <value>Token za osvježavanje nije važeći. </value>
   </data>
   <data name="InvalidRoleName" xml:space="preserve">
     <value>Naziv uloge '{0}' je nevažeći.</value>
+  </data>
+  <data name="RoleRequired" xml:space="preserve">
+    <value>Uloga je obavezna.</value>
+  </data>
+  <data name="InvalidRole" xml:space="preserve">
+    <value>Uloga '{0}' nije važeća.</value>
   </data>
   <data name="InvalidToken" xml:space="preserve">
     <value>Nevažeći token.</value>
@@ -219,6 +228,12 @@
   <data name="PasswordTooShort" xml:space="preserve">
     <value>Lozinke moraju imati najmanje {0} znakova.</value>
   </data>
+  <data name="PhoneNumberTooLong" xml:space="preserve">
+    <value>Broj telefona ne može biti duži od {0} karaktera.</value>
+  </data>
+  <data name="InvalidPhoneNumber" xml:space="preserve">
+    <value>Broj telefona '{0}' nije važeći.</value>
+  </data>
   <data name="RefreshTokenRequired" xml:space="preserve">
     <value>Token za osvježavanje je neophodan.</value>
   </data>
@@ -235,7 +250,7 @@
     <value>Korisnik već ima ulogu '{0}'.</value>
   </data>
   <data name="UserExists" xml:space="preserve">
-    <value>Korisnik sa datim korisničkim imenom već postoji, molimo unesite drugo korisničko ime.</value>
+    <value>Korisnik sa datim korisničkim imenom ili mejlom već postoji, molimo unesite drugo korisničko ime ili mejl.</value>
   </data>
   <data name="UserLockoutNotEnabled" xml:space="preserve">
     <value>Zaključavanje nije omogućeno za ovog korisnika.</value>
@@ -245,5 +260,23 @@
   </data>
   <data name="UserNotInRole" xml:space="preserve">
     <value>Korisnik nije u  ulozi '{0}'.</value>
+  </data>
+  <data name="FirstNameRequired" xml:space="preserve">
+    <value>Ime je neophodno.</value>
+  </data>
+  <data name="LastNameRequired" xml:space="preserve">
+    <value>Prezime je neophodno.</value>
+  </data>
+  <data name="FirstNameTooLong" xml:space="preserve">
+    <value>Ime mora biti najviše {0} znakova dugačko.</value>
+  </data>
+  <data name="LastNameTooLong" xml:space="preserve">
+    <value>Prezime mora biti najviše {0} znakova dugačko.</value>
+  </data>
+  <data name="UserNameTooLong" xml:space="preserve">
+    <value>Korisničko ime mora biti najviše {0} znakova dugačko.</value>
+  </data>
+  <data name="LanguageIdValid" xml:space="preserve">
+    <value>ID jezika mora biti veći od 0.</value>
   </data>
 </root>

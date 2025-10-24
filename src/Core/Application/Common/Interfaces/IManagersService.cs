@@ -1,4 +1,5 @@
-﻿using Domain.Entities.Identity;
+﻿using Application.Common.Models;
+using Domain.Entities.Identity;
 
 namespace Application.Common.Interfaces
 {
@@ -17,5 +18,9 @@ namespace Application.Common.Interfaces
         Task SignOutAsync();
 
         Task<AppUser?> FindByIdAsync(string id);
+
+        Task<(Result Result, string Id)> CreateUserAsync(AppUser user, string password, string role);
+
+        Task<bool> UserExistsAsync(string username, string email, CancellationToken cancellationToken = default);
     }
 }
