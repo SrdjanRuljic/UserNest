@@ -282,4 +282,13 @@
   <data name="LanguageIdValid" xml:space="preserve">
     <value>ID jezika mora biti večji od 0.</value>
   </data>
+  <data name="PageNumberMustBeGreaterThanZero" xml:space="preserve">
+    <value>Številka strani mora biti večja od 0.</value>
+  </data>
+  <data name="PageSizeMustBeGreaterThanZero" xml:space="preserve">
+    <value>Velikost strani mora biti večja od 0.</value>
+  </data>
+  <data name="PageSizeCannotExceedHundred" xml:space="preserve">
+    <value>Velikost strani ne sme presegati 100.</value>
+  </data>
 </root>

@@ -279,4 +279,13 @@
   <data name="LanguageIdValid" xml:space="preserve">
     <value>Language ID must be greater than 0.</value>
   </data>
+  <data name="PageNumberMustBeGreaterThanZero" xml:space="preserve">
+    <value>Page number must be greater than 0.</value>
+  </data>
+  <data name="PageSizeMustBeGreaterThanZero" xml:space="preserve">
+    <value>Page size must be greater than 0.</value>
+  </data>
+  <data name="PageSizeCannotExceedHundred" xml:space="preserve">
+    <value>Page size cannot exceed 100.</value>
+  </data>
 </root>

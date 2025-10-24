@@ -563,5 +563,32 @@ namespace Application.Resources {
                 return ResourceManager.GetString("UserNotInRole", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Page number must be greater than 0..
+        /// </summary>
+        public static string PageNumberMustBeGreaterThanZero {
+            get {
+                return ResourceManager.GetString("PageNumberMustBeGreaterThanZero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Page size must be greater than 0..
+        /// </summary>
+        public static string PageSizeMustBeGreaterThanZero {
+            get {
+                return ResourceManager.GetString("PageSizeMustBeGreaterThanZero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Page size cannot exceed 100..
+        /// </summary>
+        public static string PageSizeCannotExceedHundred {
+            get {
+                return ResourceManager.GetString("PageSizeCannotExceedHundred", resourceCulture);
+            }
+        }
     }
 }

@@ -1,5 +1,7 @@
-﻿using Application.Users.Commands.Insert;
+﻿using Application.Common.Pagination.Models;
 using Application.Users.Commands.Delete;
+using Application.Users.Commands.Insert;
+using Application.Users.Queries.GetAll;
 using Application.Users.Queries.GetById;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +18,14 @@ namespace WebAPI.Controllers
             GetUserByIdDto dto = await Sender.Send(new GetUserByIdQuery(id));
 
             return Ok(dto);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll([FromQuery] GetAllUsersQuery query)
+        {
+            PaginationResultViewModel<GetAllUsersViewModel> paginatedUsers = await Sender.Send(query);
+
+            return Ok(paginatedUsers);
         }
 
         #endregion [GET]

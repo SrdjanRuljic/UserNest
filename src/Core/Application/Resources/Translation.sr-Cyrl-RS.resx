@@ -279,4 +279,13 @@
   <data name="LanguageIdValid" xml:space="preserve">
     <value>ID језика мора бити већи од 0.</value>
   </data>
+  <data name="PageNumberMustBeGreaterThanZero" xml:space="preserve">
+    <value>Број странице мора бити већи од 0.</value>
+  </data>
+  <data name="PageSizeMustBeGreaterThanZero" xml:space="preserve">
+    <value>Величина странице мора бити већа од 0.</value>
+  </data>
+  <data name="PageSizeCannotExceedHundred" xml:space="preserve">
+    <value>Величина странице не може премашити 100.</value>
+  </data>
 </root>
