@@ -107,5 +107,8 @@ namespace Infrastructure.Identity
             => await userManager.Users
                 .Where(x => !x.IsDeleted)
                 .AnyAsync(x => x.UserName == username || x.Email == email, cancellationToken);
+
+        public IQueryable<AppUser> GetUsers() =>
+            userManager.Users;
     }
 }

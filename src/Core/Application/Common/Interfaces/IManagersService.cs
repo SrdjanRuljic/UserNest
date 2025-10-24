@@ -22,5 +22,7 @@ namespace Application.Common.Interfaces
         Task<(Result Result, string Id)> CreateUserAsync(AppUser user, string password, string role);
 
         Task<bool> UserExistsAsync(string username, string email, CancellationToken cancellationToken = default);
+
+        IQueryable<AppUser> GetUsers();
     }
 }

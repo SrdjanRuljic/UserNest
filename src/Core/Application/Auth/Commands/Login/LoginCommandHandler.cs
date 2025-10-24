@@ -35,13 +35,12 @@ namespace Application.Auth.Commands.Login
                 .AddAsync(new RefreshToken(
                     user.Id,
                     tokens.RefreshToken), cancellationToken);
-            
+
             await context.SaveChangesAsync(cancellationToken);
 
             return new LoginViewModel(
                 tokens.AuthToken,
-                tokens.RefreshToken,
-                mapper.Map<LoggedInUserViewModel>(user));
+                tokens.RefreshToken);
         }
     }
 }

@@ -3,9 +3,9 @@ using Application.Mappings;
 using AutoMapper;
 using Domain.Entities.Identity;
 
-namespace Application.Auth.Commands.Login
+namespace Application.Users.Queries.GetById
 {
-    public class LoggedInUserViewModel : IMapFrom<AppUser>
+    public class GetUserByIdDto : IMapFrom<AppUser>
     {
         public string Email { get; set; } = string.Empty;
         public string FirstName { get; set; } = string.Empty;
@@ -21,11 +21,11 @@ namespace Application.Auth.Commands.Login
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<AppUser, LoggedInUserViewModel>()
-                   .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => FullNameResolver.Resolve(src)))
-                   .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.UserRoles.Select(x => x.Role.Name).First()))
-                   .ForMember(dest => dest.Language, opt => opt.MapFrom(src => src.Language!.Name))
-                   .ForMember(dest => dest.Culture, opt => opt.MapFrom(src => src.Language!.Culture));
+            profile.CreateMap<AppUser, GetUserByIdDto>()
+                .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => FullNameResolver.Resolve(src)))
+                .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.UserRoles.Select(x => x.Role.Name).First()))
+                .ForMember(dest => dest.Language, opt => opt.MapFrom(src => src.Language!.Name))
+                .ForMember(dest => dest.Culture, opt => opt.MapFrom(src => src.Language!.Culture));
         }
     }
 }

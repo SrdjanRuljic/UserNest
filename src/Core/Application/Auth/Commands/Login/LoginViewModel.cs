@@ -2,6 +2,5 @@
 {
     public record LoginViewModel(
         string AuthToken,
-        string RefreshToken,
-        LoggedInUserViewModel User);
+        string RefreshToken);
 }
