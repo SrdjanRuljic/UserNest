@@ -10,7 +10,11 @@ namespace Application.Common.Pagination
         public int TotalCount { get; private set; }
         public int TotalPages { get; private set; }
 
-        public PaginatedList(List<T> items, int count, int pageNumber, int pageSize)
+        public PaginatedList(
+            List<T> items,
+            int count,
+            int pageNumber,
+            int pageSize)
         {
             PageNumber = pageNumber;
             TotalPages = (int)Math.Ceiling(count / (double)pageSize);
@@ -26,13 +30,19 @@ namespace Application.Common.Pagination
             this.AddRange(items);
         }
 
-        public static PaginatedList<T> Create(IQueryable<T> source, int pageNumber, int pageSize)
+        public static PaginatedList<T> Create(
+            IQueryable<T> source,
+            int pageNumber,
+            int pageSize)
         {
             List<T> items = [.. source.Skip((pageNumber - 1) * pageSize).Take(pageSize)];
             return new PaginatedList<T>(items, pageNumber);
         }
 
-        public static PaginatedList<T> CreateAndCount(IQueryable<T> source, int pageNumber, int pageSize)
+        public static PaginatedList<T> CreateAndCount(
+            IQueryable<T> source,
+            int pageNumber,
+            int pageSize)
         {
             int count = source.Count();
             List<T> items = [.. source.Skip((pageNumber - 1) * pageSize).Take(pageSize)];
@@ -46,7 +56,9 @@ namespace Application.Common.Pagination
             CancellationToken cancellationToken)
         {
             int count = await source.CountAsync(cancellationToken);
-            List<T> items = await source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
+            List<T> items = await source.Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync(cancellationToken);
             return new PaginatedList<T>(items, count, pageNumber, pageSize);
         }
 
@@ -57,7 +69,9 @@ namespace Application.Common.Pagination
             CancellationToken cancellationToken)
         {
             int count = await source.CountAsync(cancellationToken);
-            List<T> items = await source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
+            List<T> items = await source.Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync(cancellationToken);
             return new PaginatedList<T>(items, count, pageNumber, pageSize);
         }
     }
