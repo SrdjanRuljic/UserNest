@@ -37,9 +37,10 @@ namespace Application.Users.Commands.Insert
                 Created = dateTimeService.Now
             };
 
-            (Result Result, string Id) result;
-
-            result = await managersService.CreateUserAsync(user, request.Password, request.Role);
+            (Result Result, string Id) result = await managersService.CreateUser(
+                user,
+                request.Password,
+                request.Role);
 
             if (!result.Result.Succeeded)
                 throw new BadRequestException(string.Concat(result.Result.Errors));

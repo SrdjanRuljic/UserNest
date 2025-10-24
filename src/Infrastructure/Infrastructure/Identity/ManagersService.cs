@@ -66,7 +66,6 @@ namespace Infrastructure.Identity
                 .ThenInclude(x => x.Role)
                 .Include(x => x.Language)
                 .Where(x => x.Email == term || x.UserName == term)
-                .Where(x => !x.IsDeleted)
                 .FirstOrDefaultAsync(cancellationToken);
 
         public async Task<string[]> GetRolesAsync(AppUser user)
@@ -78,7 +77,7 @@ namespace Infrastructure.Identity
         public async Task<AppUser?> FindByIdAsync(string id)
             => await userManager.FindByIdAsync(id);
 
-        public async Task<(Result Result, string Id)> CreateUserAsync(
+        public async Task<(Result Result, string Id)> CreateUser(
             AppUser user,
             string password,
             string role)
@@ -107,6 +106,13 @@ namespace Infrastructure.Identity
             => await userManager.Users
                 .Where(x => !x.IsDeleted)
                 .AnyAsync(x => x.UserName == username || x.Email == email, cancellationToken);
+
+        public async Task<Result> UpdateUser(AppUser user)
+        {
+            IdentityResult result = await userManager.UpdateAsync(user);
+
+            return result.ToApplicationResult();
+        }
 
         public IQueryable<AppUser> GetUsers() =>
             userManager.Users;

@@ -26,6 +26,8 @@ namespace Infrastructure.Persistence
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+            
+            modelBuilder.Entity<AppUser>().HasQueryFilter(x => !x.IsDeleted);
         }
     }
 }

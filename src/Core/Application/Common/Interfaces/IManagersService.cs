@@ -19,9 +19,11 @@ namespace Application.Common.Interfaces
 
         Task<AppUser?> FindByIdAsync(string id);
 
-        Task<(Result Result, string Id)> CreateUserAsync(AppUser user, string password, string role);
+        Task<(Result Result, string Id)> CreateUser(AppUser user, string password, string role);
 
         Task<bool> UserExistsAsync(string username, string email, CancellationToken cancellationToken = default);
+
+        Task<Result> UpdateUser(AppUser user);
 
         IQueryable<AppUser> GetUsers();
     }

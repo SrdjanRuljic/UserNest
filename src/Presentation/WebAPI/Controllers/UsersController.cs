@@ -1,4 +1,5 @@
 ﻿using Application.Users.Commands.Insert;
+using Application.Users.Commands.Delete;
 using Application.Users.Queries.GetById;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,5 +32,18 @@ namespace WebAPI.Controllers
         }
 
         #endregion [POST]
+
+        #region [PATCH]
+
+        [HttpPatch]
+        [Route("{id}")]
+        public async Task<IActionResult> Delete(string id)
+        {
+            await Sender.Send(new DeleteUserCommand(id));
+
+            return NoContent();
+        }
+
+        #endregion [PATCH]
     }
 }
