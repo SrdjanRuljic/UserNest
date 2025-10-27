@@ -76,7 +76,7 @@ namespace Infrastructure.Identity
         public async Task<AppUser?> FindByIdAsync(string id)
             => await userManager.FindByIdAsync(id);
 
-        public async Task<(Result Result, string Id)> CreateUser(
+        public async Task<(Result Result, string Id)> CreateUserAsync(
             AppUser user,
             string password,
             string role)
@@ -115,14 +115,19 @@ namespace Infrastructure.Identity
                 .Where(x => !x.IsDeleted && x.Id != excludeUserId)
                 .AnyAsync(x => x.UserName == username || x.Email == email, cancellationToken);
 
-        public async Task<Result> UpdateUser(AppUser user)
+        public async Task<bool> ValidatePasswordAsync(
+            AppUser user,
+            string password)
+            => await userManager.CheckPasswordAsync(user, password);
+
+        public async Task<Result> UpdateUserAsync(AppUser user)
         {
             IdentityResult result = await userManager.UpdateAsync(user);
 
             return result.ToApplicationResult();
         }
 
-        public async Task<Result> UpdatePassword(AppUser user, string newPassword)
+        public async Task<Result> UpdatePasswordAsync(AppUser user, string newPassword)
         {
             string token = await userManager.GeneratePasswordResetTokenAsync(user);
             IdentityResult result = await userManager.ResetPasswordAsync(user, token, newPassword);

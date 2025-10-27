@@ -37,7 +37,7 @@ namespace Application.Users.Commands.Insert
                 Created = dateTimeService.Now
             };
 
-            (Result Result, string Id) result = await managersService.CreateUser(
+            (Result Result, string Id) result = await managersService.CreateUserAsync(
                 user,
                 request.Password,
                 request.Role);

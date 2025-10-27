@@ -19,15 +19,17 @@ namespace Application.Common.Interfaces
 
         Task<AppUser?> FindByIdAsync(string id);
 
-        Task<(Result Result, string Id)> CreateUser(AppUser user, string password, string role);
+        Task<(Result Result, string Id)> CreateUserAsync(AppUser user, string password, string role);
 
         Task<bool> UserExistsAsync(string username, string email, CancellationToken cancellationToken = default);
 
-        Task<Result> UpdateUser(AppUser user);
+        Task<Result> UpdateUserAsync(AppUser user);
 
-        Task<Result> UpdatePassword(AppUser user, string newPassword);
+        Task<Result> UpdatePasswordAsync(AppUser user, string newPassword);
 
         Task<bool> UserExistsExcludingAsync(string username, string email, string excludeUserId, CancellationToken cancellationToken = default);
+
+        Task<bool> ValidatePasswordAsync(AppUser user, string password);
 
         IQueryable<AppUser> GetUsers();
     }

@@ -34,14 +34,14 @@ namespace Application.Users.Commands.Update
 
             UpdateUserProperties(request, user);
 
-            Result updateResult = await managersService.UpdateUser(user);
+            Result updateResult = await managersService.UpdateUserAsync(user);
 
             if (!updateResult.Succeeded)
                 throw new BadRequestException(string.Concat(updateResult.Errors));
 
             if (!string.IsNullOrWhiteSpace(request.Password))
             {
-                Result passwordResult = await managersService.UpdatePassword(user, request.Password);
+                Result passwordResult = await managersService.UpdatePasswordAsync(user, request.Password);
 
                 if (!passwordResult.Succeeded)
                     throw new BadRequestException(string.Concat(passwordResult.Errors));

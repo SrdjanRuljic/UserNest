@@ -20,7 +20,7 @@ namespace Application.Users.Commands.Delete
             user.LastModifiedBy = currentUserService.UserId;
             user.LastModified = dateTimeService.Now;
 
-            Result result = await managersService.UpdateUser(user);
+            Result result = await managersService.UpdateUserAsync(user);
 
             if (!result.Succeeded)
                 throw new BadRequestException(string.Concat(result.Errors));

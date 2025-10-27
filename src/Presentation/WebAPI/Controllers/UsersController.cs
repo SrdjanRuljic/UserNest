@@ -4,6 +4,7 @@ using Application.Users.Commands.Insert;
 using Application.Users.Commands.Update;
 using Application.Users.Queries.GetAll;
 using Application.Users.Queries.GetById;
+using Application.Users.Queries.ValidatePassword;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
@@ -27,6 +28,15 @@ namespace WebAPI.Controllers
             PaginationResultViewModel<GetAllUsersViewModel> paginatedUsers = await Sender.Send(query);
 
             return Ok(paginatedUsers);
+        }
+
+        [HttpGet]
+        [Route("validate-password")]
+        public async Task<IActionResult> ValidatePassword(ValidatePasswordQuery query)
+        {
+            bool isValid = await Sender.Send(query);
+
+            return Ok(isValid);
         }
 
         #endregion [GET]
