@@ -288,4 +288,7 @@
   <data name="PageSizeCannotExceedHundred" xml:space="preserve">
     <value>Page size cannot exceed 100.</value>
   </data>
+  <data name="UserIdRequired" xml:space="preserve">
+    <value>User ID is required.</value>
+  </data>
 </root>

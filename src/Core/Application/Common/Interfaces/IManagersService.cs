@@ -25,6 +25,10 @@ namespace Application.Common.Interfaces
 
         Task<Result> UpdateUser(AppUser user);
 
+        Task<Result> UpdatePassword(AppUser user, string newPassword);
+
+        Task<bool> UserExistsExcludingAsync(string username, string email, string excludeUserId, CancellationToken cancellationToken = default);
+
         IQueryable<AppUser> GetUsers();
     }
 }

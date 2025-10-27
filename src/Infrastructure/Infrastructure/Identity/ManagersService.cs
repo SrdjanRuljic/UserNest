@@ -106,9 +106,26 @@ namespace Infrastructure.Identity
                 .Where(x => !x.IsDeleted)
                 .AnyAsync(x => x.UserName == username || x.Email == email, cancellationToken);
 
+        public async Task<bool> UserExistsExcludingAsync(
+            string username,
+            string email,
+            string excludeUserId,
+            CancellationToken cancellationToken = default)
+            => await userManager.Users
+                .Where(x => !x.IsDeleted && x.Id != excludeUserId)
+                .AnyAsync(x => x.UserName == username || x.Email == email, cancellationToken);
+
         public async Task<Result> UpdateUser(AppUser user)
         {
             IdentityResult result = await userManager.UpdateAsync(user);
+
+            return result.ToApplicationResult();
+        }
+
+        public async Task<Result> UpdatePassword(AppUser user, string newPassword)
+        {
+            string token = await userManager.GeneratePasswordResetTokenAsync(user);
+            IdentityResult result = await userManager.ResetPasswordAsync(user, token, newPassword);
 
             return result.ToApplicationResult();
         }

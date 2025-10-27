@@ -288,4 +288,7 @@
   <data name="PageSizeCannotExceedHundred" xml:space="preserve">
     <value>Величина странице не може премашити 100.</value>
   </data>
+  <data name="UserIdRequired" xml:space="preserve">
+    <value>ID корисника је неопходан.</value>
+  </data>
 </root>

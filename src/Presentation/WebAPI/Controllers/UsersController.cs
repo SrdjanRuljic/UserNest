@@ -1,6 +1,7 @@
 ﻿using Application.Common.Pagination.Models;
 using Application.Users.Commands.Delete;
 using Application.Users.Commands.Insert;
+using Application.Users.Commands.Update;
 using Application.Users.Queries.GetAll;
 using Application.Users.Queries.GetById;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +34,6 @@ namespace WebAPI.Controllers
         #region [POST]
 
         [HttpPost]
-        [Route("insert")]
         public async Task<IActionResult> Insert(InsertUserCommand command)
         {
             string id = await Sender.Send(command);
@@ -42,6 +42,21 @@ namespace WebAPI.Controllers
         }
 
         #endregion [POST]
+
+        #region [PUT]
+
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<IActionResult> Update(string id, UpdateUserCommand command)
+        {
+            command = command with { Id = id };
+
+            string result = await Sender.Send(command);
+
+            return Ok(result);
+        }
+
+        #endregion [PUT]
 
         #region [PATCH]
 
