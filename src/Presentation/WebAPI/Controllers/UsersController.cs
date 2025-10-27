@@ -207,7 +207,7 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> Delete(
             [FromRoute, SwaggerParameter("User ID")] string id)
         {
-            var command = new DeleteUserCommand { Id = id };
+            var command = new DeleteUserCommand(id);
             await Sender.Send(command);
 
             return NoContent();
