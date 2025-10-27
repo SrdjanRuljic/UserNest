@@ -294,4 +294,13 @@
   <data name="UserIdRequired" xml:space="preserve">
     <value>ID uporabnika je potreben.</value>
   </data>
+  <data name="UserIdTooLong" xml:space="preserve">
+    <value>ID uporabnika ne sme presegati {0} znakov.</value>
+  </data>
+  <data name="UserNameTooShort" xml:space="preserve">
+    <value>Uporabniško ime mora biti dolgo vsaj 3 znake.</value>
+  </data>
+  <data name="PasswordTooLong" xml:space="preserve">
+    <value>Geslo ne sme presegati {0} znakov.</value>
+  </data>
 </root>

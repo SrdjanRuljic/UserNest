@@ -291,4 +291,13 @@
   <data name="UserIdRequired" xml:space="preserve">
     <value>ID korisnika je neophodan.</value>
   </data>
+  <data name="UserIdTooLong" xml:space="preserve">
+    <value>ID korisnika ne može premašiti {0} karaktera.</value>
+  </data>
+  <data name="UserNameTooShort" xml:space="preserve">
+    <value>Korisničko ime mora imati najmanje 3 karaktera.</value>
+  </data>
+  <data name="PasswordTooLong" xml:space="preserve">
+    <value>Lozinka ne može premašiti {0} karaktera.</value>
+  </data>
 </root>

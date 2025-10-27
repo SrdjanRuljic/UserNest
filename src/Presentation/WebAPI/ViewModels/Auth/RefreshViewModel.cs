@@ -1,8 +1,8 @@
-﻿using Swashbuckle.AspNetCore.Annotations;
+using Swashbuckle.AspNetCore.Annotations;
 
-namespace Application.Auth.Commands.Refresh
+namespace WebAPI.ViewModels.Auth
 {
-    [SwaggerSchema("Token refresh response")]
+    [SwaggerSchema("Token refresh response view model")]
     public record RefreshViewModel(
         [SwaggerSchema("New JWT access token")]
         string AuthToken,

@@ -10,9 +10,9 @@ namespace Application.Auth.Commands.Refresh
     internal sealed class RefreshTokenCommandHandler(
         IApplicationDbContext context,
         IJwtFactory jwtFactory,
-        IManagersService managersService) : IRequestHandler<RefreshTokenCommand, RefreshViewModel>
+        IManagersService managersService) : IRequestHandler<RefreshTokenCommand, RefreshDto>
     {
-        public async Task<RefreshViewModel> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
+        public async Task<RefreshDto> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
         {
             if (!request.IsValid(out string errorMessage))
                 throw new BadRequestException(errorMessage);
@@ -43,7 +43,7 @@ namespace Application.Auth.Commands.Refresh
 
             await context.SaveChangesAsync(cancellationToken);
 
-            return new RefreshViewModel(tokens.AuthToken, tokens.RefreshToken);
+            return new RefreshDto(tokens.AuthToken, tokens.RefreshToken);
         }
     }
 }

@@ -1,7 +1,6 @@
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using System.Reflection;
 
 namespace WebAPI.Filters
 {
@@ -21,7 +20,7 @@ namespace WebAPI.Filters
                             Schema = context.SchemaGenerator.GenerateSchema(typeof(Application.Auth.Commands.Login.LoginCommand), context.SchemaRepository),
                             Example = new OpenApiObject
                             {
-                                ["username"] = new OpenApiString("johndoe"),
+                                ["username"] = new OpenApiString("john.doe@example.com"),
                                 ["password"] = new OpenApiString("SecurePassword123!")
                             }
                         }
@@ -73,7 +72,7 @@ namespace WebAPI.Filters
                             Schema = context.SchemaGenerator.GenerateSchema(typeof(Application.Users.Commands.Insert.InsertUserCommand), context.SchemaRepository),
                             Example = new OpenApiObject
                             {
-                                ["userName"] = new OpenApiString("johndoe"),
+                                ["userName"] = new OpenApiString("john.doe"),
                                 ["email"] = new OpenApiString("john.doe@example.com"),
                                 ["password"] = new OpenApiString("SecurePassword123!"),
                                 ["firstName"] = new OpenApiString("John"),
@@ -94,12 +93,12 @@ namespace WebAPI.Filters
                     {
                         ["application/json"] = new OpenApiMediaType
                         {
-                            Schema = context.SchemaGenerator.GenerateSchema(typeof(Application.Users.Commands.Update.UpdateUserCommand), context.SchemaRepository),
+                            Schema = context.SchemaGenerator.GenerateSchema(typeof(Application.Users.Commands.Update.UpdateUserDto), context.SchemaRepository),
                             Example = new OpenApiObject
                             {
                                 ["firstName"] = new OpenApiString("John"),
                                 ["lastName"] = new OpenApiString("Smith"),
-                                ["userName"] = new OpenApiString("johnsmith"),
+                                ["userName"] = new OpenApiString("john.smith"),
                                 ["email"] = new OpenApiString("john.smith@example.com"),
                                 ["password"] = new OpenApiString("NewPassword123!"),
                                 ["languageId"] = new OpenApiInteger(2)
@@ -111,4 +110,5 @@ namespace WebAPI.Filters
         }
     }
 }
+
 

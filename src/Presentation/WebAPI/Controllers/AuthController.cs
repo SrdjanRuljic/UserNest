@@ -1,24 +1,25 @@
-﻿using Application.Auth;
-using Application.Auth.Commands.Login;
+﻿using Application.Auth.Commands.Login;
 using Application.Auth.Commands.Logout;
 using Application.Auth.Commands.Refresh;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Net;
+using WebAPI.ViewModels.Auth;
 
 namespace WebAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class AuthController : BaseController
+    public class AuthController(IMapper mapper) : BaseController
     {
         #region [POST]
 
         /// <summary>
         /// Authenticates a user and returns JWT tokens
         /// </summary>
-        /// <param name="command">Login credentials</param>
+        /// <param name="command">User login credentials</param>
         /// <returns>JWT authentication and refresh tokens</returns>
         /// <response code="200">OK - Successfully authenticated. Returns JWT tokens.</response>
         /// <response code="400">BadRequest - Invalid credentials or validation errors.</response>
@@ -38,7 +39,8 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> Login(
             [FromBody, SwaggerRequestBody("User login credentials")] LoginCommand command)
         {
-            LoginViewModel result = await Sender.Send(command);
+            LoginDto dto = await Sender.Send(command);
+            LoginViewModel result = mapper.Map<LoginViewModel>(dto);
 
             return Ok(result);
         }
@@ -93,7 +95,8 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> RefreshToken(
             [FromBody, SwaggerRequestBody("Refresh token command")] RefreshTokenCommand command)
         {
-            RefreshViewModel result = await Sender.Send(command);
+            RefreshDto dto = await Sender.Send(command);
+            RefreshViewModel result = mapper.Map<RefreshViewModel>(dto);
 
             return Ok(result);
         }

@@ -11,9 +11,9 @@ namespace Application.Auth.Commands.Login
         IApplicationDbContext context,
         IJwtFactory jwtFactory,
         IManagersService managersService,
-        IMapper mapper) : IRequestHandler<LoginCommand, LoginViewModel>
+        IMapper mapper) : IRequestHandler<LoginCommand, LoginDto>
     {
-        public async Task<LoginViewModel> Handle(LoginCommand request, CancellationToken cancellationToken)
+        public async Task<LoginDto> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
             if (!request.IsValid(out string errorMessage))
                 throw new BadRequestException(errorMessage);
@@ -38,7 +38,7 @@ namespace Application.Auth.Commands.Login
 
             await context.SaveChangesAsync(cancellationToken);
 
-            return new LoginViewModel(
+            return new LoginDto(
                 tokens.AuthToken,
                 tokens.RefreshToken);
         }

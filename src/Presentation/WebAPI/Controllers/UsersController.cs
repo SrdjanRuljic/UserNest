@@ -5,15 +5,18 @@ using Application.Users.Commands.Update;
 using Application.Users.Queries.GetAll;
 using Application.Users.Queries.GetById;
 using Application.Users.Queries.ValidatePassword;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Net;
+using WebAPI.ViewModels.Common;
+using WebAPI.ViewModels.Users;
 
 namespace WebAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UsersController : BaseController
+    public class UsersController(IMapper mapper) : BaseController
     {
         #region [GET]
 
@@ -35,18 +38,19 @@ namespace WebAPI.Controllers
             OperationId = "GetUserById",
             Tags = new[] { "Users" }
         )]
-        [SwaggerResponse(200, "User found", typeof(GetUserByIdDto), contentTypes: new[] { "application/json" })]
-        [SwaggerResponse(400, "Bad request - Invalid user ID", typeof(object), contentTypes: new[] { "application/json" })]
-        [SwaggerResponse(401, "Unauthorized - Invalid or missing JWT token", typeof(object), contentTypes: new[] { "application/json" })]
-        [SwaggerResponse(403, "Forbidden - Admin role required", typeof(object), contentTypes: new[] { "application/json" })]
-        [SwaggerResponse(404, "User not found", typeof(object), contentTypes: new[] { "application/json" })]
+        [SwaggerResponse(200, "User found", typeof(GetUserByIdViewModel), contentTypes: ["application/json"])]
+        [SwaggerResponse(400, "Bad request - Invalid user ID", typeof(object), contentTypes: ["application/json"])]
+        [SwaggerResponse(401, "Unauthorized - Invalid or missing JWT token", typeof(object), contentTypes: ["application/json"])]
+        [SwaggerResponse(403, "Forbidden - Admin role required", typeof(object), contentTypes: ["application/json"])]
+        [SwaggerResponse(404, "User not found", typeof(object), contentTypes: ["application/json"])]
         public async Task<IActionResult> GetById(
             [FromRoute, SwaggerParameter("User ID", Required = true)] string id)
         {
-            var query = new GetUserByIdQuery { Id = id };
+            GetUserByIdQuery query = new() { Id = id };
             GetUserByIdDto dto = await Sender.Send(query);
+            GetUserByIdViewModel viewModel = mapper.Map<GetUserByIdViewModel>(dto);
 
-            return Ok(dto);
+            return Ok(viewModel);
         }
 
         /// <summary>
@@ -65,16 +69,18 @@ namespace WebAPI.Controllers
             OperationId = "GetAllUsers",
             Tags = new[] { "Users" }
         )]
-        [SwaggerResponse(200, "Users retrieved successfully", typeof(PaginationResultViewModel<GetAllUsersViewModel>), contentTypes: new[] { "application/json" })]
-        [SwaggerResponse(400, "Bad request - Invalid pagination parameters", typeof(object), contentTypes: new[] { "application/json" })]
-        [SwaggerResponse(401, "Unauthorized - Invalid or missing JWT token", typeof(object), contentTypes: new[] { "application/json" })]
-        [SwaggerResponse(403, "Forbidden - Admin role required", typeof(object), contentTypes: new[] { "application/json" })]
+        [SwaggerResponse(200, "Users retrieved successfully", typeof(PaginationResultViewModel<GetAllUsersViewModel>), contentTypes: ["application/json"])]
+        [SwaggerResponse(400, "Bad request - Invalid pagination parameters", typeof(object), contentTypes: ["application/json"])]
+        [SwaggerResponse(401, "Unauthorized - Invalid or missing JWT token", typeof(object), contentTypes: ["application/json"])]
+        [SwaggerResponse(403, "Forbidden - Admin role required", typeof(object), contentTypes: ["application/json"])]
         public async Task<IActionResult> GetAll(
             [FromQuery, SwaggerParameter("Pagination and search parameters")] GetAllUsersQuery query)
         {
-            PaginationResultViewModel<GetAllUsersViewModel> paginatedUsers = await Sender.Send(query);
+            PaginationResultDto<GetAllUsersDto> paginatedDto = await Sender.Send(query);
+            PaginationResultViewModel<GetAllUsersViewModel> paginatedViewModel =
+                mapper.Map<PaginationResultViewModel<GetAllUsersViewModel>>(paginatedDto);
 
-            return Ok(paginatedUsers);
+            return Ok(paginatedViewModel);
         }
 
         /// <summary>
@@ -146,7 +152,7 @@ namespace WebAPI.Controllers
         /// Updates an existing user
         /// </summary>
         /// <param name="id">The unique identifier of the user to update</param>
-        /// <param name="command">User update command with fields to modify</param>
+        /// <param name="dto">User update data with fields to modify</param>
         /// <returns>Updated user ID</returns>
         /// <response code="200">OK - User updated successfully.</response>
         /// <response code="400">BadRequest - Invalid input data or validation errors.</response>
@@ -167,10 +173,19 @@ namespace WebAPI.Controllers
         [SwaggerResponse((int)HttpStatusCode.Forbidden, "Forbidden - Admin role required")]
         [SwaggerResponse((int)HttpStatusCode.NotFound, "User not found")]
         public async Task<IActionResult> Update(
-            [FromRoute, SwaggerParameter("User ID")] string id, 
-            [FromBody, SwaggerRequestBody("User update data")] UpdateUserCommand command)
+            [FromRoute, SwaggerParameter("User ID")] string id,
+            [FromBody, SwaggerRequestBody("User update data")] UpdateUserDto dto)
         {
-            command.Id = id;
+            UpdateUserCommand command = new()
+            {
+                Id = id,
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
+                UserName = dto.UserName,
+                Email = dto.Email,
+                Password = dto.Password,
+                LanguageId = dto.LanguageId
+            };
 
             string result = await Sender.Send(command);
 
@@ -207,7 +222,7 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> Delete(
             [FromRoute, SwaggerParameter("User ID")] string id)
         {
-            var command = new DeleteUserCommand(id);
+            DeleteUserCommand command = new(id);
             await Sender.Send(command);
 
             return NoContent();

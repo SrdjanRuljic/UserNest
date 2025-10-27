@@ -1,8 +1,8 @@
-﻿using Swashbuckle.AspNetCore.Annotations;
+using Swashbuckle.AspNetCore.Annotations;
 
-namespace Application.Common.Pagination.Models
+namespace WebAPI.ViewModels.Common
 {
-    [SwaggerSchema("Paginated result wrapper")]
+    [SwaggerSchema("Paginated result view model wrapper")]
     public record PaginationResultViewModel<T>(
         [SwaggerSchema("Array of items for current page")]
         List<T> List,

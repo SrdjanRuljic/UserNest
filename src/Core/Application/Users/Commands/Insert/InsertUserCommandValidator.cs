@@ -11,6 +11,7 @@ namespace Application.Users.Commands.Insert
         private const int USERNAME_MAX_LENGTH = 256;
         private const int EMAIL_MAX_LENGTH = 256;
         private const int PASSWORD_MIN_LENGTH = 6;
+        private const int PASSWORD_MAX_LENGTH = 100;
         private const int PHONE_NUMBER_MAX_LENGTH = 20;
 
         #endregion Constants
@@ -110,6 +111,11 @@ namespace Application.Users.Commands.Insert
                 if (model.Password.Length < PASSWORD_MIN_LENGTH)
                 {
                     validationMessage += string.Format(Resources.Translation.PasswordTooShort, PASSWORD_MIN_LENGTH);
+                    isValid = false;
+                }
+                else if (model.Password.Length > PASSWORD_MAX_LENGTH)
+                {
+                    validationMessage += string.Format(Resources.Translation.PasswordTooLong, PASSWORD_MAX_LENGTH);
                     isValid = false;
                 }
                 else if (!model.Password.IsValidPassword())

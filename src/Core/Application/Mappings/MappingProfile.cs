@@ -16,7 +16,7 @@ namespace Application.Mappings
                                            .Where(t => t.GetInterfaces()
                                            .Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IMapFrom<>)))];
 
-            foreach (var type in types)
+            foreach (Type type in types)
             {
                 object instance = Activator.CreateInstance(type);
                 MethodInfo methodInfo = type.GetMethod("Mapping");

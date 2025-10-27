@@ -11,6 +11,9 @@ namespace Application.Users.Commands.Update
         private const int USERNAME_MAX_LENGTH = 256;
         private const int EMAIL_MAX_LENGTH = 256;
         private const int PASSWORD_MIN_LENGTH = 6;
+        private const int PASSWORD_MAX_LENGTH = 100;
+        private const int PHONE_NUMBER_MAX_LENGTH = 20;
+        private const int USER_ID_MAX_LENGTH = 50;
 
         #endregion Constants
 
@@ -26,17 +29,13 @@ namespace Application.Users.Commands.Update
                 return false;
             }
 
-            if (string.IsNullOrWhiteSpace(model.Id))
-            {
-                validationMessage += Resources.Translation.UserIdRequired;
-                return false;
-            }
-
             bool isValid = true;
 
+            isValid &= ValidateUserId(model, ref validationMessage);
             isValid &= ValidatePersonalInfo(model, ref validationMessage);
             isValid &= ValidateCredentials(model, ref validationMessage);
             isValid &= ValidateEmail(model, ref validationMessage);
+            isValid &= ValidateLanguageId(model, ref validationMessage);
 
             return isValid;
         }
@@ -44,6 +43,24 @@ namespace Application.Users.Commands.Update
         #endregion Public Methods
 
         #region Private Validation Methods
+
+        private static bool ValidateUserId(UpdateUserCommand model, ref string validationMessage)
+        {
+            bool isValid = true;
+
+            if (string.IsNullOrWhiteSpace(model.Id))
+            {
+                validationMessage += Resources.Translation.UserIdRequired;
+                isValid = false;
+            }
+            else if (model.Id.Length > USER_ID_MAX_LENGTH)
+            {
+                validationMessage += string.Format(Resources.Translation.UserIdTooLong, USER_ID_MAX_LENGTH);
+                isValid = false;
+            }
+
+            return isValid;
+        }
 
         private static bool ValidatePersonalInfo(UpdateUserCommand model, ref string validationMessage)
         {
@@ -67,12 +84,6 @@ namespace Application.Users.Commands.Update
                 }
             }
 
-            if (model.LanguageId.HasValue && model.LanguageId.Value <= 0)
-            {
-                validationMessage += Resources.Translation.LanguageIdValid;
-                isValid = false;
-            }
-
             return isValid;
         }
 
@@ -82,7 +93,12 @@ namespace Application.Users.Commands.Update
 
             if (!string.IsNullOrWhiteSpace(model.UserName))
             {
-                if (model.UserName.Length > USERNAME_MAX_LENGTH)
+                if (model.UserName.Length < 3)
+                {
+                    validationMessage += Resources.Translation.UserNameTooShort;
+                    isValid = false;
+                }
+                else if (model.UserName.Length > USERNAME_MAX_LENGTH)
                 {
                     validationMessage += string.Format(Resources.Translation.UserNameTooLong, USERNAME_MAX_LENGTH);
                     isValid = false;
@@ -99,6 +115,11 @@ namespace Application.Users.Commands.Update
                 if (model.Password.Length < PASSWORD_MIN_LENGTH)
                 {
                     validationMessage += string.Format(Resources.Translation.PasswordTooShort, PASSWORD_MIN_LENGTH);
+                    isValid = false;
+                }
+                else if (model.Password.Length > PASSWORD_MAX_LENGTH)
+                {
+                    validationMessage += string.Format(Resources.Translation.PasswordTooLong, PASSWORD_MAX_LENGTH);
                     isValid = false;
                 }
                 else if (!model.Password.IsValidPassword())
@@ -127,6 +148,19 @@ namespace Application.Users.Commands.Update
                     validationMessage += string.Format(Resources.Translation.InvalidEmail, model.Email);
                     isValid = false;
                 }
+            }
+
+            return isValid;
+        }
+
+        private static bool ValidateLanguageId(UpdateUserCommand model, ref string validationMessage)
+        {
+            bool isValid = true;
+
+            if (model.LanguageId.HasValue && model.LanguageId.Value <= 0)
+            {
+                validationMessage += Resources.Translation.LanguageIdValid;
+                isValid = false;
             }
 
             return isValid;

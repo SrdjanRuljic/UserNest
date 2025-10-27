@@ -1,8 +1,8 @@
-﻿using Swashbuckle.AspNetCore.Annotations;
+using Swashbuckle.AspNetCore.Annotations;
 
-namespace Application.Auth.Commands.Login
+namespace WebAPI.ViewModels.Auth
 {
-    [SwaggerSchema("Login response containing authentication tokens")]
+    [SwaggerSchema("Login response view model containing authentication tokens")]
     public record LoginViewModel(
         [SwaggerSchema("JWT access token")]
         string AuthToken,

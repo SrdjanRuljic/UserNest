@@ -1,15 +1,9 @@
-using Application.Common.Security;
-using Domain.Enums;
-using MediatR;
 using System.ComponentModel.DataAnnotations;
 
 namespace Application.Users.Commands.Update
 {
-    [Authorize(Policy = nameof(Policies.RequireAdminRole))]
-    public class UpdateUserCommand : IRequest<string>
+    public class UpdateUserDto
     {
-        public string Id { get; set; } = string.Empty;
-        
         [StringLength(100, ErrorMessage = "First name cannot exceed 100 characters")]
         public string? FirstName { get; set; }
         

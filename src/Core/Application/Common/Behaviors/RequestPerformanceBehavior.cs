@@ -16,13 +16,13 @@ namespace Application.Common.Behaviors
         {
             _timer.Start();
 
-            var response = await next(cancellationToken);
+            TResponse response = await next(cancellationToken);
 
             _timer.Stop();
 
             if (_timer.ElapsedMilliseconds > 500)
             {
-                var name = typeof(TRequest).Name;
+                string name = typeof(TRequest).Name;
 
                 logger.LogWarning("UserNest long running request: {Name} ({ElapsedMilliseconds} milliseconds) {@Request}",
                                    name,

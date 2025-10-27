@@ -1,5 +1,4 @@
 ﻿using Domain.Entities.Identity;
-using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -10,10 +9,12 @@ namespace Infrastructure.Persistence.Configurations.Identity
         public void Configure(EntityTypeBuilder<AppUser> builder)
         {
             builder.Property(x => x.Email)
-                .IsRequired();
+                .IsRequired()
+                .HasMaxLength(256);
 
             builder.Property(x => x.UserName)
-                .IsRequired();
+                .IsRequired()
+                .HasMaxLength(256);
 
             builder.Property(x => x.FirstName)
                 .IsRequired()

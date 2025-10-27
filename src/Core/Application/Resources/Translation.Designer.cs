@@ -547,6 +547,15 @@ namespace Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User ID cannot exceed {0} characters..
+        /// </summary>
+        public static string UserIdTooLong {
+            get {
+                return ResourceManager.GetString("UserIdTooLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lockout is not enabled for this user..
         /// </summary>
         public static string UserLockoutNotEnabled {
@@ -597,6 +606,24 @@ namespace Application.Resources {
         public static string PageSizeCannotExceedHundred {
             get {
                 return ResourceManager.GetString("PageSizeCannotExceedHundred", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username must be at least 3 characters long..
+        /// </summary>
+        public static string UserNameTooShort {
+            get {
+                return ResourceManager.GetString("UserNameTooShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password cannot exceed {0} characters..
+        /// </summary>
+        public static string PasswordTooLong {
+            get {
+                return ResourceManager.GetString("PasswordTooLong", resourceCulture);
             }
         }
     }
