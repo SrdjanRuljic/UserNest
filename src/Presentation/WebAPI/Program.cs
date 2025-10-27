@@ -4,6 +4,7 @@ using Infrastructure;
 using Infrastructure.Persistence;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
+using WebAPI.Filters;
 using WebAPI.Helpers;
 using WebAPI.Middlewares;
 using WebAPI.Services;
@@ -21,13 +22,29 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
-    options.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI", Version = "v1" });
+    options.SwaggerDoc("v1", new OpenApiInfo 
+    { 
+        Title = "UserNest API", 
+        Version = "v1",
+        Description = "A comprehensive user management API with authentication and authorization features.",
+        Contact = new OpenApiContact
+        {
+            Name = "UserNest Team",
+            Email = "support@usernest.com"
+        }
+    });
+    
+    // Security definition for JWT Bearer tokens
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
-        Description = "JWT Authorization header using the Bearer scheme.",
+        Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
         Type = SecuritySchemeType.Http,
-        Scheme = "bearer"
+        Scheme = "bearer",
+        BearerFormat = "JWT"
     });
+    
     options.AddSecurityRequirement(new OpenApiSecurityRequirement()
     {
         {
@@ -40,13 +57,27 @@ builder.Services.AddSwaggerGen(options =>
             }, new List<string>()
         }
     });
+    
+    // Custom type mappings
     options.MapType<TimeSpan>(() => new OpenApiSchema
     {
         Type = "string",
         Example = new OpenApiString("00:00")
     });
 
+    // Include XML comments if available
+    var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    if (File.Exists(xmlPath))
+    {
+        options.IncludeXmlComments(xmlPath);
+    }
+
     options.OperationFilter<SwaggerLanguageHeader>();
+    options.OperationFilter<ExampleOperationFilter>();
+    
+    // Enable annotations
+    options.EnableAnnotations();
 });
 
 WebApplication app = builder.Build();
