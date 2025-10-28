@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Application.Common.Behaviors
 {
-    internal sealed class LoggingExceptionBehavior<TRequest, TResponse>(
+    public sealed class LoggingExceptionBehavior<TRequest, TResponse>(
         ILogger<LoggingExceptionBehavior<TRequest, TResponse>> logger,
         IHttpContextAccessor httpContextAccessor,
         ILoggingHelperService loggingHelperService)

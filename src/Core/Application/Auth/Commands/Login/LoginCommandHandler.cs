@@ -1,6 +1,5 @@
 ﻿using Application.Common.Interfaces;
 using Application.Exceptions;
-using AutoMapper;
 using Domain.Entities;
 using Domain.Entities.Identity;
 using MediatR;
@@ -10,8 +9,7 @@ namespace Application.Auth.Commands.Login
     internal sealed class LoginCommandHandler(
         IApplicationDbContext context,
         IJwtFactory jwtFactory,
-        IManagersService managersService,
-        IMapper mapper) : IRequestHandler<LoginCommand, LoginDto>
+        IManagersService managersService) : IRequestHandler<LoginCommand, LoginDto>
     {
         public async Task<LoginDto> Handle(LoginCommand request, CancellationToken cancellationToken)
         {

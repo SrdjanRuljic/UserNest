@@ -18,8 +18,8 @@ namespace Application.Mappings
 
             foreach (Type type in types)
             {
-                object instance = Activator.CreateInstance(type);
-                MethodInfo methodInfo = type.GetMethod("Mapping");
+                object? instance = Activator.CreateInstance(type);
+                MethodInfo? methodInfo = type.GetMethod("Mapping");
                 methodInfo?.Invoke(instance, [this]);
             }
         }

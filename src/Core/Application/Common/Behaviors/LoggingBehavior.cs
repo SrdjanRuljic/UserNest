@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Application.Common.Behaviors
 {
-    internal sealed class LoggingBehavior<TRequest, TResponse>(
+    public sealed class LoggingBehavior<TRequest, TResponse>(
         ILogger<LoggingBehavior<TRequest, TResponse>> logger,
         IHttpContextAccessor httpContextAccessor,
         ILoggingHelperService loggingHelperService)
@@ -18,7 +18,7 @@ namespace Application.Common.Behaviors
         {
             string requestName = typeof(TRequest).Name;
             string responseName = typeof(TResponse).Name;
-            
+
             string clientIp = loggingHelperService.GetClientIpAddress(httpContextAccessor);
             string clientName = loggingHelperService.GetClientName(httpContextAccessor);
             string hostName = Environment.MachineName;
