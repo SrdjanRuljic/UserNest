@@ -4,6 +4,7 @@ using Infrastructure;
 using Infrastructure.Persistence;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using WebAPI.Filters;
 using WebAPI.Helpers;
 using WebAPI.Mappings;
@@ -12,10 +13,19 @@ using WebAPI.Services;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
+// Configure Serilog
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .CreateLogger();
+
+// Use Serilog for logging
+builder.Host.UseSerilog();
+
 // Add services to the container.
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
+builder.Services.AddScoped<ILoggingHelperService, LoggingHelperService>();
 builder.Services.AddHttpContextAccessor();
 
 // Add AutoMapper for ViewModel mappings
@@ -116,4 +126,16 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+try
+{
+    Log.Information("Starting UserNest Web API");
+    app.Run();
+}
+catch (Exception ex)
+{
+    Log.Fatal(ex, "Application terminated unexpectedly");
+}
+finally
+{
+    Log.CloseAndFlush();
+}

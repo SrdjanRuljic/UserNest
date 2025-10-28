@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace Application.Common.Behaviors
 {
-    public class AuthorizationBehavior<TRequest, TResponse>(ICurrentUserService currentUserService, IManagersService managersService)
+    internal class AuthorizationBehavior<TRequest, TResponse>(ICurrentUserService currentUserService, IManagersService managersService)
         : IPipelineBehavior<TRequest, TResponse> where TRequest : notnull
     {
         public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
