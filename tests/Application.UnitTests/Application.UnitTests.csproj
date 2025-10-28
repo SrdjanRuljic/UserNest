@@ -21,9 +21,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\Core\Application\Application.csproj" />
-    <ProjectReference Include="..\src\Core\Domain\Domain.csproj" />
-    <ProjectReference Include="..\src\Presentation\WebAPI\WebAPI.csproj" />
+    <ProjectReference Include="..\..\src\Core\Application\Application.csproj" />
+    <ProjectReference Include="..\..\src\Core\Domain\Domain.csproj" />
+    <ProjectReference Include="..\..\src\Presentation\WebAPI\WebAPI.csproj" />
   </ItemGroup>
 
   <ItemGroup>
