@@ -30,8 +30,8 @@ namespace Application.UnitTests.Common.Behaviours
         public async Task Handle_ShouldLogStartAndCompletion_WhenRequestIsSuccessful()
         {
             // Arrange
-            TestRequest request = new TestRequest(1, "Test");
-            TestResponse expectedResponse = new TestResponse("Success");
+            TestRequest request = new(1, "Test");
+            TestResponse expectedResponse = new("Success");
             string clientIp = "192.168.1.1";
             string clientName = "TestClient";
             string hostName = Environment.MachineName;
@@ -71,8 +71,8 @@ namespace Application.UnitTests.Common.Behaviours
         public async Task Handle_ShouldMeasureAndLogDuration_WhenRequestIsSuccessful()
         {
             // Arrange
-            TestRequest request = new TestRequest(1, "Test");
-            TestResponse expectedResponse = new TestResponse("Success");
+            TestRequest request = new(1, "Test");
+            TestResponse expectedResponse = new("Success");
             TimeSpan delay = TimeSpan.FromMilliseconds(100);
 
             SetupDefaultMocks();
@@ -100,8 +100,8 @@ namespace Application.UnitTests.Common.Behaviours
         public async Task Handle_ShouldPassCancellationTokenToNext_WhenCancellationTokenIsProvided()
         {
             // Arrange
-            TestRequest request = new TestRequest(1, "Test");
-            TestResponse expectedResponse = new TestResponse("Success");
+            TestRequest request = new(1, "Test");
+            TestResponse expectedResponse = new("Success");
             CancellationToken cancellationToken = new();
 
             SetupDefaultMocks();
@@ -122,8 +122,8 @@ namespace Application.UnitTests.Common.Behaviours
         public async Task Handle_ShouldUseCorrectRequestAndResponseTypeNames_WhenDifferentTypesAreUsed()
         {
             // Arrange
-            AnotherTestRequest request = new AnotherTestRequest("TestValue");
-            AnotherTestResponse expectedResponse = new AnotherTestResponse("OK");
+            AnotherTestRequest request = new("TestValue");
+            AnotherTestResponse expectedResponse = new("OK");
 
             LoggingBehavior<AnotherTestRequest, AnotherTestResponse> behavior = new(
                 new Mock<ILogger<LoggingBehavior<AnotherTestRequest, AnotherTestResponse>>>().Object,
@@ -154,8 +154,8 @@ namespace Application.UnitTests.Common.Behaviours
         public async Task Handle_ShouldReturnResponseFromNextDelegate_WhenNextDelegateReturnsValue()
         {
             // Arrange
-            TestRequest request = new TestRequest(1, "Test");
-            TestResponse expectedResponse = new TestResponse("CustomResult");
+            TestRequest request = new(1, "Test");
+            TestResponse expectedResponse = new("CustomResult");
 
             SetupDefaultMocks();
 
@@ -175,8 +175,8 @@ namespace Application.UnitTests.Common.Behaviours
         public async Task Handle_ShouldLogWithCorrectHostName_WhenEnvironmentMachineNameIsUsed()
         {
             // Arrange
-            TestRequest request = new TestRequest(1, "Test");
-            TestResponse expectedResponse = new TestResponse("Success");
+            TestRequest request = new(1, "Test");
+            TestResponse expectedResponse = new("Success");
             string expectedHostName = Environment.MachineName;
 
             SetupDefaultMocks();
