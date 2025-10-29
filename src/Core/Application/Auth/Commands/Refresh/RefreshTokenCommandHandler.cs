@@ -17,7 +17,7 @@ namespace Application.Auth.Commands.Refresh
             if (!request.IsValid(out string errorMessage))
                 throw new BadRequestException(errorMessage);
 
-            bool isValid = jwtFactory.Validate(request.RefreshToken);
+            bool isValid = await jwtFactory.ValidateAsync(request.RefreshToken);
 
             if (!isValid)
                 throw new BadRequestException(Resources.Translation.InvalidRefreshToken);

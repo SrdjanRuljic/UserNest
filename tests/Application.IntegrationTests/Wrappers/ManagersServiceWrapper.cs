@@ -44,12 +44,7 @@ public class ManagersServiceWrapper(
         => _managersService.GetRolesAsync(user);
 
     public Task SignOutAsync()
-    {
-        // In integration tests, there's no HttpContext, so SignOutAsync would fail.
-        // This is a no-op for testing purposes as the actual sign-out behavior
-        // isn't what we're testing in LogoutCommand integration tests.
-        return Task.CompletedTask;
-    }
+        => Task.CompletedTask;
 
     public Task<AppUser?> FindByIdAsync(string id)
         => _managersService.FindByIdAsync(id);

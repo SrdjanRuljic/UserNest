@@ -6,6 +6,6 @@
 
         string GenerateEncodedToken(string userId, string[] roles);
 
-        bool Validate(string refreshToken);
+        Task<bool> ValidateAsync(string refreshToken);
     }
 }

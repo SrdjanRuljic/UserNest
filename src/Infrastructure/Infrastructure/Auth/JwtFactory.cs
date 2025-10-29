@@ -1,25 +1,28 @@
 ﻿using Application.Common.Interfaces;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
 namespace Infrastructure.Auth
 {
-    public class JwtFactory(IConfiguration config, IDateTimeService dateTimeService) : IJwtFactory
+    public class JwtFactory(IConfiguration configuration, IDateTimeService dateTimeService) : IJwtFactory
     {
         public string GenerateEncodedToken(string userId, string[] roles)
         {
-            SymmetricSecurityKey securityKey = new(Encoding.UTF8.GetBytes(config["Jwt:AccessTokenSecret"]!));
-            SigningCredentials credentials = new(securityKey, SecurityAlgorithms.HmacSha512);
+            SymmetricSecurityKey securityKey = new(Encoding.UTF8.GetBytes(configuration["Jwt:AccessTokenSecret"]!));
+            SigningCredentials credentials = new(securityKey, SecurityAlgorithms.HmacSha512Signature);
+
+            DateTime now = dateTimeService.Now;
+            DateTime expires = now.AddHours(8);
 
             Claim[] GetClaims()
             {
                 List<Claim> claims =
                 [
-                    new Claim(JwtRegisteredClaimNames.Sub, userId),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                    new Claim("sub", userId),
+                    new Claim("jti", Guid.NewGuid().ToString()),
                 ];
 
                 foreach (var item in roles)
@@ -30,68 +33,75 @@ namespace Infrastructure.Auth
                 return [.. claims];
             }
 
-            JwtSecurityToken token = new(issuer: config["Jwt:Issuer"],
-                                         audience: config["Jwt:Audience"],
-                                         GetClaims(),
-                                         expires: dateTimeService.Now.AddHours(8),
-                                         signingCredentials: credentials);
+            SecurityTokenDescriptor tokenDescriptor = new()
+            {
+                Subject = new ClaimsIdentity(GetClaims()),
+                Issuer = configuration["Jwt:Issuer"]!,
+                Audience = configuration["Jwt:Audience"]!,
+                Expires = expires,
+                NotBefore = now,
+                SigningCredentials = credentials
+            };
 
-            string encodeToken = new JwtSecurityTokenHandler().WriteToken(token);
+            JsonWebTokenHandler tokenHandler = new();
+            string encodedToken = tokenHandler.CreateToken(tokenDescriptor);
 
-            return encodeToken;
+            return encodedToken;
         }
 
         public string GenerateEncodedToken()
         {
-            SymmetricSecurityKey securityKey = new(Encoding.UTF8.GetBytes(config["Jwt:RefreshTokenSecret"]!));
-            SigningCredentials credentials = new(securityKey, SecurityAlgorithms.HmacSha512);
+            SymmetricSecurityKey securityKey = new(Encoding.UTF8.GetBytes(configuration["Jwt:RefreshTokenSecret"]!));
+            SigningCredentials credentials = new(securityKey, SecurityAlgorithms.HmacSha512Signature);
+
+            DateTime now = dateTimeService.Now;
+            DateTime expires = now.AddHours(12);
 
             static Claim[] GetClaims()
             {
-                List<Claim> claims = [new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())];
+                List<Claim> claims = [new Claim("jti", Guid.NewGuid().ToString())];
 
                 return [.. claims];
             }
 
-            JwtSecurityToken token = new(issuer: config["Jwt:Issuer"],
-                                         audience: config["Jwt:Audience"],
-                                         GetClaims(),
-                                         expires: dateTimeService.Now.AddHours(12),
-                                         signingCredentials: credentials);
-
-            string encodeToken = new JwtSecurityTokenHandler().WriteToken(token);
-
-            return encodeToken;
-        }
-
-        public bool Validate(string refreshToken)
-        {
-            var validationParameters = new TokenValidationParameters
+            SecurityTokenDescriptor tokenDescriptor = new()
             {
-                ValidateIssuer = true,
-                ValidIssuer = config["Jwt:Issuer"],
-
-                ValidateAudience = true,
-                ValidAudience = config["Jwt:Audience"],
-
-                ValidateLifetime = true,
-
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:RefreshTokenSecret"]!)),
+                Subject = new ClaimsIdentity(GetClaims()),
+                Issuer = configuration["Jwt:Issuer"]!,
+                Audience = configuration["Jwt:Audience"]!,
+                Expires = expires,
+                NotBefore = now,
+                SigningCredentials = credentials
             };
 
-            JwtSecurityTokenHandler jwtSecurityTokenHandler = new();
+            JsonWebTokenHandler tokenHandler = new();
+            string encodedToken = tokenHandler.CreateToken(tokenDescriptor);
 
-            try
-            {
-                jwtSecurityTokenHandler.ValidateToken(refreshToken, validationParameters, out SecurityToken validatedToken);
+            return encodedToken;
+        }
 
-                return true;
-            }
-            catch (Exception)
-            {
+        public async Task<bool> ValidateAsync(string refreshToken)
+        {
+            if (string.IsNullOrWhiteSpace(refreshToken))
                 return false;
-            }
+
+            JsonWebTokenHandler tokenHandler = new();
+
+            TokenValidationParameters validationParameters = new()
+            {
+                ValidateIssuer = true,
+                ValidIssuer = configuration["Jwt:Issuer"],
+                ValidateAudience = true,
+                ValidAudience = configuration["Jwt:Audience"],
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:RefreshTokenSecret"]!)),
+                ClockSkew = TimeSpan.Zero
+            };
+
+            TokenValidationResult result = await tokenHandler.ValidateTokenAsync(refreshToken, validationParameters);
+
+            return result.IsValid;
         }
     }
 }
