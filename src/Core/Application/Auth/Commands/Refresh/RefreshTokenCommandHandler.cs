@@ -25,12 +25,12 @@ namespace Application.Auth.Commands.Refresh
             RefreshToken? refreshToken = await context.RefreshTokens
                 .Where(rt => rt.Token == request.RefreshToken)
                 .FirstOrDefaultAsync(cancellationToken) ??
-                throw new NotFoundException(ErrorMessages.CreateEntityWasNotFoundMessage(nameof(RefreshToken), request.RefreshToken));
+                throw new NotFoundException(nameof(RefreshToken), request.RefreshToken);
 
             context.RefreshTokens.Remove(refreshToken);
 
             AppUser? user = await managersService.FindByIdAsync(refreshToken.UserId) ??
-                throw new NotFoundException(string.Format(ErrorMessages.CreateEntityWasNotFoundMessage(nameof(AppUser), refreshToken.UserId)));
+                throw new NotFoundException(nameof(AppUser), refreshToken.UserId);
 
             string[] roles = await managersService.GetRolesAsync(user);
 
