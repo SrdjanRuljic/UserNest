@@ -139,7 +139,7 @@ namespace Application.IntegrationTests
         }
 
         public static Task<string> RunAsAdministratorAsync()
-            => RunAsUserAsync("admin@test.com", "Admin_123!", [Domain.Enums.Roles.Admin.ToString()]);
+            => RunAsUserAsync("admin@gmail.com", "Administrator_123!", [Domain.Enums.Roles.Admin.ToString()]);
 
         public static async Task SendAsync(IBaseRequest request)
         {
@@ -169,8 +169,12 @@ namespace Application.IntegrationTests
             UserManager<AppUser> userManager = scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
             RoleManager<AppRole> roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<AppRole>>();
 
-            // Create role if it doesn't exist
-            if (!await roleManager.RoleExistsAsync(roleName))
+            // Create role if it doesn't exist (check both original and normalized names)
+            string normalizedRoleName = roleManager.NormalizeKey(roleName);
+            bool roleExists = await roleManager.RoleExistsAsync(roleName) ||
+                             await roleManager.RoleExistsAsync(normalizedRoleName);
+
+            if (!roleExists)
             {
                 await roleManager.CreateAsync(new AppRole { Name = roleName });
             }

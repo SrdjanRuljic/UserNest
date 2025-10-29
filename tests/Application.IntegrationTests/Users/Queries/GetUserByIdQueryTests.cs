@@ -9,6 +9,7 @@ namespace Application.IntegrationTests.Users.Queries;
 
 using static Testing;
 
+[Collection("Integration Tests")]
 public class GetUserByIdQueryTests : BaseTestFixture
 {
     [Fact]
@@ -19,7 +20,7 @@ public class GetUserByIdQueryTests : BaseTestFixture
         await RunAsAdministratorAsync();
 
         // Create a language first
-        Language language = new Language
+        Language language = new()
         {
             Name = "English",
             Culture = "en-US",
@@ -29,7 +30,7 @@ public class GetUserByIdQueryTests : BaseTestFixture
         await AddAsync(language);
 
         // Create a user
-        AppUser user = new AppUser
+        AppUser user = new()
         {
             UserName = "testuser",
             Email = "test@example.com",
@@ -45,7 +46,7 @@ public class GetUserByIdQueryTests : BaseTestFixture
         // Create admin role and assign to user
         await AssignRoleToUserAsync(user.Id, Roles.Admin.ToString());
 
-        GetUserByIdQuery query = new GetUserByIdQuery { Id = user.Id };
+        GetUserByIdQuery query = new() { Id = user.Id };
 
         // Act
         GetUserByIdDto result = await SendAsync(query);
@@ -72,7 +73,7 @@ public class GetUserByIdQueryTests : BaseTestFixture
         await ResetState();
         await RunAsAdministratorAsync();
 
-        GetUserByIdQuery query = new GetUserByIdQuery { Id = "non-existent-id" };
+        GetUserByIdQuery query = new() { Id = "non-existent-id" };
 
         // Act & Assert
         Func<Task> act = async () => await SendAsync(query);
@@ -88,7 +89,7 @@ public class GetUserByIdQueryTests : BaseTestFixture
         await RunAsAdministratorAsync();
 
         // Create a language first
-        Language language = new Language
+        Language language = new()
         {
             Name = "English",
             Culture = "en-US",
@@ -98,7 +99,7 @@ public class GetUserByIdQueryTests : BaseTestFixture
         await AddAsync(language);
 
         // Create a deleted user
-        AppUser user = new AppUser
+        AppUser user = new()
         {
             UserName = "deleteduser",
             Email = "deleted@example.com",
@@ -110,7 +111,7 @@ public class GetUserByIdQueryTests : BaseTestFixture
 
         await AddAsync(user);
 
-        GetUserByIdQuery query = new GetUserByIdQuery { Id = user.Id };
+        GetUserByIdQuery query = new() { Id = user.Id };
 
         // Act & Assert
         Func<Task> act = async () => await SendAsync(query);
@@ -126,7 +127,7 @@ public class GetUserByIdQueryTests : BaseTestFixture
         await RunAsAdministratorAsync();
 
         // Create a user without language
-        AppUser user = new AppUser
+        AppUser user = new()
         {
             UserName = "userwithoutlang",
             Email = "nolang@example.com",
@@ -141,7 +142,7 @@ public class GetUserByIdQueryTests : BaseTestFixture
         // Create admin role and assign to user
         await AssignRoleToUserAsync(user.Id, Roles.Admin.ToString());
 
-        GetUserByIdQuery query = new GetUserByIdQuery { Id = user.Id };
+        GetUserByIdQuery query = new() { Id = user.Id };
 
         // Act
         GetUserByIdDto result = await SendAsync(query);
@@ -168,7 +169,7 @@ public class GetUserByIdQueryTests : BaseTestFixture
         await RunAsAdministratorAsync();
 
         // Create a language first
-        Language language = new Language
+        Language language = new()
         {
             Name = "English",
             Culture = "en-US",
@@ -194,7 +195,7 @@ public class GetUserByIdQueryTests : BaseTestFixture
         await AssignRoleToUserAsync(user.Id, Roles.Admin.ToString());
         await AssignRoleToUserAsync(user.Id, Roles.RegularUser.ToString());
 
-        GetUserByIdQuery query = new GetUserByIdQuery { Id = user.Id };
+        GetUserByIdQuery query = new() { Id = user.Id };
 
         // Act
         GetUserByIdDto result = await SendAsync(query);
@@ -213,7 +214,7 @@ public class GetUserByIdQueryTests : BaseTestFixture
         await RunAsAdministratorAsync();
 
         // Create a language first
-        Language language = new Language
+        Language language = new()
         {
             Name = "English",
             Culture = "en-US",
@@ -223,7 +224,7 @@ public class GetUserByIdQueryTests : BaseTestFixture
         await AddAsync(language);
 
         // Create a user without phone number
-        AppUser user = new AppUser
+        AppUser user = new()
         {
             UserName = "nophoneuser",
             Email = "nophone@example.com",
@@ -239,7 +240,7 @@ public class GetUserByIdQueryTests : BaseTestFixture
         // Create admin role and assign to user
         await AssignRoleToUserAsync(user.Id, Roles.Admin.ToString());
 
-        GetUserByIdQuery query = new GetUserByIdQuery { Id = user.Id };
+        GetUserByIdQuery query = new() { Id = user.Id };
 
         // Act
         GetUserByIdDto result = await SendAsync(query);
@@ -257,7 +258,7 @@ public class GetUserByIdQueryTests : BaseTestFixture
         await ResetState();
         await RunAsAdministratorAsync();
 
-        GetUserByIdQuery query = new GetUserByIdQuery { Id = string.Empty };
+        GetUserByIdQuery query = new() { Id = string.Empty };
 
         // Act & Assert
         Func<Task> act = async () => await SendAsync(query);
@@ -272,7 +273,7 @@ public class GetUserByIdQueryTests : BaseTestFixture
         await ResetState();
         await RunAsAdministratorAsync();
 
-        GetUserByIdQuery query = new GetUserByIdQuery { Id = "   " };
+        GetUserByIdQuery query = new() { Id = "   " };
 
         // Act & Assert
         Func<Task> act = async () => await SendAsync(query);
@@ -288,7 +289,7 @@ public class GetUserByIdQueryTests : BaseTestFixture
         await RunAsAdministratorAsync();
 
         // Create a language first
-        Language language = new Language
+        Language language = new()
         {
             Name = "English",
             Culture = "en-US",
@@ -298,7 +299,7 @@ public class GetUserByIdQueryTests : BaseTestFixture
         await AddAsync(language);
 
         // Create a user with special characters
-        AppUser user = new AppUser
+        AppUser user = new()
         {
             UserName = "special@user",
             Email = "special@example.com",
@@ -313,7 +314,7 @@ public class GetUserByIdQueryTests : BaseTestFixture
         // Create admin role and assign to user
         await AssignRoleToUserAsync(user.Id, Roles.Admin.ToString());
 
-        GetUserByIdQuery query = new GetUserByIdQuery { Id = user.Id };
+        GetUserByIdQuery query = new() { Id = user.Id };
 
         // Act
         GetUserByIdDto result = await SendAsync(query);
