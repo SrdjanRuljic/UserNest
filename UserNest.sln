@@ -25,6 +25,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.UnitTests", "te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.IntegrationTests", "tests\Application.IntegrationTests\Application.IntegrationTests.csproj", "{DD8412BA-527A-4D8E-9A4B-31A6603759D3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{BAB5A9FC-7BF4-4516-905C-2CCCD0151906}"
+	ProjectSection(SolutionItems) = preProject
+		docs\ARCHITECTURE.md = docs\ARCHITECTURE.md
+		docs\CLASS-DIAGRAM.md = docs\CLASS-DIAGRAM.md
+		docs\MIGRATION-GUIDE.md = docs\MIGRATION-GUIDE.md
+		docs\README.md = docs\README.md
+		docs\VALIDATION_STANDARDS.md = docs\VALIDATION_STANDARDS.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
