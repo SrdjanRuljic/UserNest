@@ -1,7 +1,6 @@
 using Application.Auth.Commands.Login;
 using Application.Exceptions;
 using Domain.Entities;
-using Domain.Entities.Identity;
 using Domain.Enums;
 using FluentAssertions;
 
@@ -127,7 +126,7 @@ public class LoginCommandTests : BaseTestFixture
         // Arrange
         await ResetState();
 
-        string longUsername = new string('a', 257); // More than 256 characters
+        string longUsername = new('a', 257); // More than 256 characters
 
         LoginCommand command = new()
         {
@@ -163,7 +162,7 @@ public class LoginCommandTests : BaseTestFixture
         // Arrange
         await ResetState();
 
-        string longPassword = new string('a', 101); // More than 100 characters
+        string longPassword = new('a', 101); // More than 100 characters
 
         LoginCommand command = new()
         {
@@ -263,7 +262,7 @@ public class LoginCommandTests : BaseTestFixture
         // Assert
         result.AuthToken.Should().NotBeNullOrEmpty();
         result.RefreshToken.Should().NotBeNullOrEmpty();
-        
+
         // Tokens should be different
         result.AuthToken.Should().NotBe(result.RefreshToken);
     }
@@ -276,7 +275,7 @@ public class LoginCommandTests : BaseTestFixture
         await EnsureRolesExistAsync();
 
         string password = "Password_123!";
-        string userId = await RunAsUserAsync("adminuser@example.com", password, [Roles.Admin.ToString()]);
+        await RunAsUserAsync("adminuser@example.com", password, [Roles.Admin.ToString()]);
 
         LoginCommand command = new()
         {
@@ -301,7 +300,7 @@ public class LoginCommandTests : BaseTestFixture
         await EnsureRolesExistAsync();
 
         string password = "Password_123!";
-        string userId = await RunAsUserAsync("multiuser@example.com", password, [Roles.Admin.ToString(), Roles.RegularUser.ToString()]);
+        await RunAsUserAsync("multiuser@example.com", password, [Roles.Admin.ToString(), Roles.RegularUser.ToString()]);
 
         LoginCommand command = new()
         {
@@ -354,7 +353,7 @@ public class LoginCommandTests : BaseTestFixture
         await EnsureRolesExistAsync();
 
         string password = "Pass1!";
-        string userId = await RunAsUserAsync("testuser@example.com", password, [Roles.RegularUser.ToString()]);
+        await RunAsUserAsync("testuser@example.com", password, [Roles.RegularUser.ToString()]);
 
         LoginCommand command = new()
         {
@@ -405,4 +404,3 @@ public class LoginCommandTests : BaseTestFixture
         await act.Should().ThrowAsync<BadRequestException>();
     }
 }
-
