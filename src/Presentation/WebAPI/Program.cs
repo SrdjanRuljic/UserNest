@@ -36,9 +36,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
-    options.SwaggerDoc("v1", new OpenApiInfo 
-    { 
-        Title = "UserNest API", 
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "UserNest API",
         Version = "v1",
         Description = "A comprehensive user management API with authentication and authorization features.",
         Contact = new OpenApiContact
@@ -47,7 +47,7 @@ builder.Services.AddSwaggerGen(options =>
             Email = "support@usernest.com"
         }
     });
-    
+
     // Security definition for JWT Bearer tokens
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
@@ -58,7 +58,7 @@ builder.Services.AddSwaggerGen(options =>
         Scheme = "bearer",
         BearerFormat = "JWT"
     });
-    
+
     options.AddSecurityRequirement(new OpenApiSecurityRequirement()
     {
         {
@@ -71,7 +71,7 @@ builder.Services.AddSwaggerGen(options =>
             }, new List<string>()
         }
     });
-    
+
     // Custom type mappings
     options.MapType<TimeSpan>(() => new OpenApiSchema
     {
@@ -89,7 +89,7 @@ builder.Services.AddSwaggerGen(options =>
 
     options.OperationFilter<SwaggerLanguageHeader>();
     options.OperationFilter<ExampleOperationFilter>();
-    
+
     // Enable annotations
     options.EnableAnnotations();
 });
@@ -126,16 +126,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-try
-{
-    Log.Information("Starting UserNest Web API");
-    app.Run();
-}
-catch (Exception ex)
-{
-    Log.Fatal(ex, "Application terminated unexpectedly");
-}
-finally
-{
-    Log.CloseAndFlush();
-}
+app.Run();
+
+public partial class Program
+{ }
