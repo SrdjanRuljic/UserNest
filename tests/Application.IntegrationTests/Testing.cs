@@ -75,13 +75,15 @@ namespace Application.IntegrationTests
         public static IServiceScope CreateScope()
         {
             EnsureInitialized();
+
             return _scopeFactory.CreateScope();
         }
 
         public static async Task AddAsync<TEntity>(TEntity entity) where TEntity : class
         {
             EnsureInitialized();
-            using var scope = _scopeFactory.CreateScope();
+
+            using IServiceScope scope = _scopeFactory.CreateScope();
 
             ApplicationDbContext context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
@@ -93,7 +95,8 @@ namespace Application.IntegrationTests
         public static async Task<int> CountAsync<TEntity>() where TEntity : class
         {
             EnsureInitialized();
-            using var scope = _scopeFactory.CreateScope();
+
+            using IServiceScope scope = _scopeFactory.CreateScope();
 
             ApplicationDbContext context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
@@ -103,14 +106,18 @@ namespace Application.IntegrationTests
         public static async Task<TEntity?> FindAsync<TEntity>(params object[] keyValues) where TEntity : class
         {
             EnsureInitialized();
-            using var scope = _scopeFactory.CreateScope();
+
+            using IServiceScope scope = _scopeFactory.CreateScope();
 
             ApplicationDbContext context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
             return await context.FindAsync<TEntity>(keyValues);
         }
 
-        public static async Task<string> RunAsUserAsync(string userName, string password, string[] roles)
+        public static async Task<string> RunAsUserAsync(
+            string userName,
+            string password,
+            string[] roles)
         {
             EnsureInitialized();
             using var scope = _scopeFactory.CreateScope();
@@ -118,19 +125,21 @@ namespace Application.IntegrationTests
             UserManager<AppUser> userManager = scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
             RoleManager<AppRole> roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<AppRole>>();
 
-            AppUser user = new() { UserName = userName, Email = userName };
+            AppUser user = new()
+            {
+                UserName = userName,
+                Email = userName,
+                EmailConfirmed = true
+            };
 
             IdentityResult result = await userManager.CreateAsync(user, password);
 
             if (roles.Length != 0)
             {
-                foreach (var role in roles)
-                {
+                foreach (string role in roles)
                     if (!await roleManager.RoleExistsAsync(role))
-                    {
                         await roleManager.CreateAsync(new AppRole { Name = role });
-                    }
-                }
+
                 await userManager.AddToRolesAsync(user, roles);
             }
 
@@ -145,12 +154,16 @@ namespace Application.IntegrationTests
         }
 
         public static Task<string> RunAsAdministratorAsync()
-            => RunAsUserAsync("admin@gmail.com", "Administrator_123!", [Domain.Enums.Roles.Admin.ToString()]);
+            => RunAsUserAsync(
+                "admin@gmail.com",
+                "Administrator_123!",
+                [Domain.Enums.Roles.Admin.ToString()]);
 
         public static async Task SendAsync(IBaseRequest request)
         {
             EnsureInitialized();
-            using var scope = _scopeFactory.CreateScope();
+
+            using IServiceScope scope = _scopeFactory.CreateScope();
 
             ISender sender = scope.ServiceProvider.GetRequiredService<ISender>();
 
@@ -160,7 +173,8 @@ namespace Application.IntegrationTests
         public static async Task<TResponse> SendAsync<TResponse>(IRequest<TResponse> request)
         {
             EnsureInitialized();
-            using var scope = _scopeFactory.CreateScope();
+
+            using IServiceScope scope = _scopeFactory.CreateScope();
 
             ISender sender = scope.ServiceProvider.GetRequiredService<ISender>();
 
@@ -170,7 +184,8 @@ namespace Application.IntegrationTests
         public static async Task AssignRoleToUserAsync(string userId, string roleName)
         {
             EnsureInitialized();
-            using var scope = _scopeFactory.CreateScope();
+
+            using IServiceScope scope = _scopeFactory.CreateScope();
 
             UserManager<AppUser> userManager = scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
             RoleManager<AppRole> roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<AppRole>>();
@@ -178,34 +193,44 @@ namespace Application.IntegrationTests
             // Create role if it doesn't exist (check both original and normalized names)
             string normalizedRoleName = roleManager.NormalizeKey(roleName);
             bool roleExists = await roleManager.RoleExistsAsync(roleName) ||
-                             await roleManager.RoleExistsAsync(normalizedRoleName);
+                              await roleManager.RoleExistsAsync(normalizedRoleName);
 
             if (!roleExists)
-            {
                 await roleManager.CreateAsync(new AppRole { Name = roleName });
-            }
 
             // Find user and assign role
             AppUser? user = await userManager.FindByIdAsync(userId);
+
             if (user != null)
-            {
                 await userManager.AddToRoleAsync(user, roleName);
-            }
         }
 
         public static async Task EnsureRolesExistAsync()
         {
             EnsureInitialized();
-            using var scope = _scopeFactory.CreateScope();
-            var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<AppRole>>();
 
-            foreach (var role in Enum.GetValues<Domain.Enums.Roles>())
-            {
+            using IServiceScope scope = _scopeFactory.CreateScope();
+
+            RoleManager<AppRole> roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<AppRole>>();
+
+            foreach (Domain.Enums.Roles role in Enum.GetValues<Domain.Enums.Roles>())
                 if (!await roleManager.RoleExistsAsync(role.ToString()))
-                {
                     await roleManager.CreateAsync(new AppRole { Name = role.ToString() });
-                }
-            }
+        }
+
+        public static async Task UpdateUserAsync(string userId, Action<AppUser> updateAction)
+        {
+            EnsureInitialized();
+            using IServiceScope scope = _scopeFactory.CreateScope();
+
+            UserManager<AppUser> userManager = scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
+
+            AppUser? user = await userManager.FindByIdAsync(userId) ??
+                throw new InvalidOperationException($"User with ID {userId} not found.");
+
+            updateAction(user);
+
+            await userManager.UpdateAsync(user);
         }
     }
 }

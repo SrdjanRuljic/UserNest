@@ -1,6 +1,10 @@
 ﻿using Application.Common.Interfaces;
+using Application.IntegrationTests.Wrappers;
+using Domain.Entities.Identity;
 using Infrastructure.Persistence;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -35,6 +39,21 @@ namespace Application.IntegrationTests
                     .AddDbContext<ApplicationDbContext>((sp, options) =>
                         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
                             builder => builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+
+                services.Remove<IManagersService>();
+                services.AddScoped<IManagersService>(sp =>
+                {
+                    UserManager<AppUser> userManager = sp.GetRequiredService<UserManager<AppUser>>();
+                    IAuthorizationService authorizationService = sp.GetRequiredService<IAuthorizationService>();
+                    IUserClaimsPrincipalFactory<AppUser> userClaimsPrincipalFactory = sp.GetRequiredService<IUserClaimsPrincipalFactory<AppUser>>();
+                    SignInManager<AppUser> signInManager = sp.GetRequiredService<SignInManager<AppUser>>();
+
+                    return new ManagersServiceWrapper(
+                        authorizationService,
+                        userClaimsPrincipalFactory,
+                        userManager,
+                        signInManager);
+                });
             });
         }
     }
