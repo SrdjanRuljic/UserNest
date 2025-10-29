@@ -2,7 +2,7 @@
 
 namespace Application.Common.Behaviors
 {
-    internal static class FullNameResolver
+    public static class FullNameResolver
     {
         public static string Resolve(AppUser source)
         {
