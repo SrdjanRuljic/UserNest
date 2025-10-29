@@ -72,6 +72,12 @@ namespace Application.IntegrationTests
 
         public static string GetCurrentUserId() => _currentUserId;
 
+        public static IServiceScope CreateScope()
+        {
+            EnsureInitialized();
+            return _scopeFactory.CreateScope();
+        }
+
         public static async Task AddAsync<TEntity>(TEntity entity) where TEntity : class
         {
             EnsureInitialized();
@@ -184,6 +190,21 @@ namespace Application.IntegrationTests
             if (user != null)
             {
                 await userManager.AddToRoleAsync(user, roleName);
+            }
+        }
+
+        public static async Task EnsureRolesExistAsync()
+        {
+            EnsureInitialized();
+            using var scope = _scopeFactory.CreateScope();
+            var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<AppRole>>();
+
+            foreach (var role in Enum.GetValues<Domain.Enums.Roles>())
+            {
+                if (!await roleManager.RoleExistsAsync(role.ToString()))
+                {
+                    await roleManager.CreateAsync(new AppRole { Name = role.ToString() });
+                }
             }
         }
     }
